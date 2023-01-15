@@ -15,13 +15,13 @@ import javax.swing.Timer;
 public class boardSnake extends JPanel implements ActionListener {
 
 	// Board Breite
-	private final int b_width;
+	private final int b_width = 300;
 	// Board Höhe
-	private final int b_height;
+	private final int b_height = 300;
 	// Größe der Frucht und der Segmente der Schlange
 	private final int dot_size = 10;
 	// Max Anzahl Punkte auf Board - (Höhe * Breite)/(Dot_size * Dot_size)
-	private final int max_dots;
+	private final int max_dots = 900;
 	// Position der Frucht
 	private final int rand_pos = 49;
 	// Game speed - Schwierigkeitsgrade evtl
