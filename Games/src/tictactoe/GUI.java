@@ -11,7 +11,7 @@ public class GUI {
 
 	JFrame fenster;
 	Draw draw;
-	JButton reset;
+	JButton reset, home;
 	
 	static JButton btn[] = new JButton[9];
 	static int state[] = new int [9];
@@ -47,8 +47,8 @@ public class GUI {
 		ButtonPlatzierung.btnPlace();
 		
 		// Spiel neu starten
-		reset = new JButton();
-		reset.setBounds(675, 500, 100, 40);
+		reset = new JButton("Reset");
+		reset.setBounds(550, 500, 100, 40);
 		reset.setVisible(true);
 		reset.setBackground(new Color(51, 102, 153));
 		reset.setForeground(Color.WHITE);
@@ -63,12 +63,30 @@ public class GUI {
 			}
 		});
 		
+		// Zurück zum Homescreen
+		home = new JButton("Home");
+		home.setBounds(675, 500, 100, 40);
+		home.setVisible(true);
+		home.setBackground(Color.RED);
+		home.setForeground(Color.WHITE);
+		home.setFocusPainted(false);
+		home.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				// eigenes Event Handling
+				Funktion.home();
+			}
+		});
+		
 		// Objekt zum Zeichnen erstellen
 		draw = new Draw();
 		draw.setBounds(0, 0, 800, 600);
 		draw.setVisible(true);
 		
 		fenster.add(reset);
+		fenster.add(home);
 		fenster.add(draw);
 		
 		fenster.setVisible(true);

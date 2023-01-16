@@ -15,4 +15,8 @@ public class Funktion {
 		// Keinen Gewinner beim Start
 		GUI.gewinner = 0;
 	}
+	
+	public static void home() {
+		
+	}
 }
