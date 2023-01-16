@@ -23,6 +23,7 @@ public class GUI {
 		// Fenster erstellen
 		fenster = new JFrame();
 		fenster.setSize(800, 600);
+		// TODO: Beim Closen über X soll Homescreen sich öffnen
 		fenster.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		fenster.setLocationRelativeTo(null);
 		fenster.setResizable(false);
@@ -76,7 +77,8 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				
 				// eigenes Event Handling
-				Funktion.home();
+				fenster.dispose();
+				new HomeScreen.GUI();
 			}
 		});
 		
