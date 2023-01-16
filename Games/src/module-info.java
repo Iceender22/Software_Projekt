@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author khorn
+ *
+ */
+module Games {
+}
