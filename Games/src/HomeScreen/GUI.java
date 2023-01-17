@@ -44,7 +44,7 @@ public class GUI {
 			}
 		});
 		
-		snake = new JButton("Snakes");
+		snake = new JButton("Snake");
 		snake.setBounds(200, 50, 100, 25);
 		snake.setVisible(true);
 		snake.setBackground(Color.CYAN);
@@ -56,8 +56,9 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				
 				// Homescreen schließen
-				//screen.dispose();
+				screen.dispose();
 				// Spiel Snake öffnen
+				new snake.GUI();
 				
 			}
 		});
