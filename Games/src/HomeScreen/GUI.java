@@ -8,16 +8,21 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import Pong.ballMovement;
+import Pong.collision;
+import Pong.playerMovement;
+import Pong.variablen;
+
 public class GUI {
 
 	JFrame screen;
-	JButton ttt, snake, sudoku;
+	JButton ttt, snake, sudoku, memory, tetris, pong;
 	
 	public GUI() {
 		
 		screen = new JFrame();
 		screen.setSize(800, 600);
-		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setLocationRelativeTo(null);
 		screen.setResizable(false);
 		screen.setTitle("Dies Spielesammlung!");
@@ -75,8 +80,67 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				
 				// Homescreen schließen
-				//screen.dispose();
+				// screen.dispose();
 				// Spiel Sudoku öffnen
+				
+			}
+		});
+		
+		memory = new JButton("Memory");
+		memory.setBounds(500, 50, 100, 25);
+		memory.setVisible(true);
+		memory.setBackground(Color.CYAN);
+		memory.setForeground(Color.BLACK);
+		memory.setFocusPainted(false);
+		memory.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				// Homescreen schließen
+				// screen.dispose();
+				// Spiel Memory öffnen
+				
+			}
+		});
+		
+		tetris = new JButton("Tetris");
+		tetris.setBounds(50, 100, 100, 25);
+		tetris.setVisible(true);
+		tetris.setBackground(Color.CYAN);
+		tetris.setForeground(Color.BLACK);
+		tetris.setFocusPainted(false);
+		tetris.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				// Homescreen schließen
+				// screen.dispose();
+				// Spiel Tetris öffnen
+				
+			}
+		});
+		
+		pong = new JButton("Pong");
+		pong.setBounds(200, 100, 100, 25);
+		pong.setVisible(true);
+		pong.setBackground(Color.CYAN);
+		pong.setForeground(Color.BLACK);
+		pong.setFocusPainted(false);
+		pong.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				// Homescreen schließen
+				screen.dispose();
+				// Spiel Pong öffnen
+				new Pong.GUI();
+				new Pong.variablen();
+				new Pong.playerMovement();
+				new Pong.ballMovement();
+				new Pong.collision();
 				
 			}
 		});
@@ -84,6 +148,9 @@ public class GUI {
 		screen.add(ttt);
 		screen.add(snake);
 		screen.add(sudoku);
+		screen.add(memory);
+		screen.add(tetris);
+		screen.add(pong);
 		
 		screen.setVisible(true);
 	}

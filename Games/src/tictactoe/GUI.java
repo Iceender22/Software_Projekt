@@ -24,7 +24,7 @@ public class GUI {
 		fenster = new JFrame();
 		fenster.setSize(800, 600);
 		// TODO: Beim Closen über X soll Homescreen sich öffnen
-		fenster.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenster.setLocationRelativeTo(null);
 		fenster.setResizable(false);
 		fenster.setTitle("Tic Tac Toe");
