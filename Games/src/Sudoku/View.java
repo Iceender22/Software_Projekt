@@ -2,8 +2,11 @@ package Sudoku;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
@@ -108,25 +111,27 @@ public class View extends JFrame implements KeyListener{
 	JPanel right;
 	JPanel bottum;
 	Random random = new Random();
+	SudokuAction sudokuaction;
 	
-	public void initialise()
-	  {
-		int irandom = random.nextInt(sudokus.length);
-		board = sudokus[irandom][0];
-		solution = sudokus[irandom][1];
-		boxes = new JTextField[9][9];
+	public void initialise(SudokuAction sudokuaction)
+	  {				
+		this.sudokuaction = sudokuaction;
 	    setTitle("Sudoku");
-	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      //Damit das Fenster sich auch schlieï¿½t
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      //Damit das Fenster sich auch schließt
 	    setLocationRelativeTo(null);                         
 	    setSize(500,500);
+	    setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    
-	    addComponents();      //Komponenten einfï¿½gen
+	    addComponents();      //Komponenten einfügen
 
 	    setVisible(true);    
 	  }
 	
 	private void addComponents() {
-		
+		int irandom = random.nextInt(sudokus.length);
+		board = sudokus[irandom][0];
+		solution = sudokus[irandom][1];
+		boxes = new JTextField[9][9];
 	    this.setLayout(new BorderLayout());
 		
 		sudoku = new JPanel();
@@ -197,16 +202,37 @@ public class View extends JFrame implements KeyListener{
 	    sudoku.add(sudokuField9);
 	    
 	    titel = new JPanel();
-	    titel.setSize(1000, 100);
+	    titel.setPreferredSize(new Dimension(1000,50));
 	    
 	    left = new JPanel();
-	    left.setSize(100, 1000);
+	    left.setPreferredSize(new Dimension(50,1000));
 	    
 	    right = new JPanel();
-	    right.setSize(100, 1000);
+	    right.setPreferredSize(new Dimension(50,1000));
 	    
 	    bottum = new JPanel();
-	    bottum.setSize(100, 1000);
+	    bottum.setPreferredSize(new Dimension(1000,50));
+	    bottum.setLayout(new FlowLayout());
+	    
+	    JButton reset = new JButton();
+		reset.setBackground(Color.red);
+		reset.setText("von vorne Beginnen");
+		reset.setHorizontalAlignment(JLabel.CENTER);
+		reset.addActionListener(this.sudokuaction);
+		reset.setActionCommand("reset");
+		reset.setFocusable(false);
+		reset.setForeground(Color.black);
+		JButton home = new JButton();
+		home.setBackground(Color.blue);
+		home.setText("zurück zum Hauptmenü");
+		home.setHorizontalAlignment(JLabel.CENTER);
+		home.addActionListener(this.sudokuaction);
+		home.setActionCommand("home");
+		home.setFocusable(false);
+		home.setForeground(Color.black);
+		
+		bottum.add(reset);
+		bottum.add(home);
 	    
 	    JLabel tLabel = new JLabel("Sudoku");
 	    tLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -257,25 +283,30 @@ public class View extends JFrame implements KeyListener{
 			}
 	    }
 		if(check == 81) {
-			int answer = JOptionPane.showConfirmDialog(this, "Du hast das Sudoku gelï¿½st! Mï¿½chtest du ein neues lï¿½sen?", null, JOptionPane.YES_NO_OPTION);
+			int answer = JOptionPane.showConfirmDialog(this, "Du hast das Sudoku gelöst! Möchtest du ein neues lösen?", null, JOptionPane.YES_NO_OPTION);
 			if(answer == 0)
 			{
 				reset();
 			}
 			else if(answer == 1){
-				this.setTitle("Fenster schlieï¿½en");;
+				home();
 			}
 		}
 		System.out.println("Check: " + check);
 	}
 	
-	private void reset(){
+	public void reset(){
 		this.remove(titel);
 		this.remove(left);
 		this.remove(sudoku);
 		this.remove(right);
 		this.remove(bottum);
-		initialise();
+		addComponents();
+		this.setVisible(true);
+	}
+	
+	public void home() {
+		this.setTitle("Kehre zurück zum Hauptmenü");
 	}
 
 	@Override
@@ -287,7 +318,7 @@ public class View extends JFrame implements KeyListener{
 				{
 					int length  = boxes[i][j].getText().length();
 					char key = event.getKeyChar();
-					if(key>='0' && key <= '9') {
+					if(key>='1' && key <= '9') {
 						if(length < 1) {
 							boxes[i][j].setEditable(true);
 						}

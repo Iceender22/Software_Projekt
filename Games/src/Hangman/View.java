@@ -2,6 +2,7 @@ package Hangman;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -25,7 +26,7 @@ public class View extends JFrame implements KeyListener{
 	JPanel titel;
 	JPanel word;
 	JPanel lifeDisplay;
-	JPanel displayLetters;
+	JPanel bottum;
 	int life;
 	ArrayList<Character> usedLetters;
 	ArrayList<Character> unusedLetters;
@@ -33,61 +34,66 @@ public class View extends JFrame implements KeyListener{
 	JLabel hangman;
 	JLabel used;
 	JLabel unused;
+	JPanel displayUnusedLetters;
+    JPanel displayUsedLetters;
+    HangmanAction hangmanaction;
 	
-	public void initialise() {
+	public void initialise(HangmanAction hangmanaction) {
+		this.hangmanaction = hangmanaction;
 	    setTitle("Hang Man");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
 	    setLocationRelativeTo(null);                         
-	    setSize(1000,500);
+	    setSize(1200,700);
+	    setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    addKeyListener(this);
-	    gesucht = words[random.nextInt(words.length)];
-	    letters = new JLabel[gesucht.length()];
-	    life = 10;
-	    gefunden = 0;
-	    usedLetters = new ArrayList<Character>();
-	    unusedLetters = new ArrayList<Character>();
-	    unusedLetters.add('a');
-	    unusedLetters.add('b');
-	    unusedLetters.add('c');
-	    unusedLetters.add('d');
-	    unusedLetters.add('e');
-	    unusedLetters.add('f');
-	    unusedLetters.add('g');
-	    unusedLetters.add('h');
-	    unusedLetters.add('i');
-	    unusedLetters.add('j');
-	    unusedLetters.add('k');
-	    unusedLetters.add('l');
-	    unusedLetters.add('m');
-	    unusedLetters.add('n');
-	    unusedLetters.add('o');
-	    unusedLetters.add('p');
-	    unusedLetters.add('a');
-	    unusedLetters.add('q');
-	    unusedLetters.add('r');
-	    unusedLetters.add('s');
-	    unusedLetters.add('t');
-	    unusedLetters.add('u');
-	    unusedLetters.add('v');
-	    unusedLetters.add('w');
-	    unusedLetters.add('x');
-	    unusedLetters.add('y');
-	    unusedLetters.add('z');
-	    
-	    addComponents();      //Komponenten einfügen
+	    setBackground(Color.white);
+	    this.setLayout(new BorderLayout());
+	    addComponents();      
 
 	    setVisible(true);    
 	  }
 	
 	private void addComponents() {
-		this.setLayout(new BorderLayout());
+		
+		 gesucht = words[random.nextInt(words.length)];
+		    letters = new JLabel[gesucht.length()];
+		    life = 10;
+		    gefunden = 0;
+		    usedLetters = new ArrayList<Character>();
+		    unusedLetters = new ArrayList<Character>();	    
+		    unusedLetters.add('a');
+		    unusedLetters.add('b');
+		    unusedLetters.add('c');
+		    unusedLetters.add('d');
+		    unusedLetters.add('e');
+		    unusedLetters.add('f');
+		    unusedLetters.add('g');
+		    unusedLetters.add('h');
+		    unusedLetters.add('i');
+		    unusedLetters.add('j');
+		    unusedLetters.add('k');
+		    unusedLetters.add('l');
+		    unusedLetters.add('m');
+		    unusedLetters.add('n');
+		    unusedLetters.add('o');
+		    unusedLetters.add('p');
+		    unusedLetters.add('q');
+		    unusedLetters.add('r');
+		    unusedLetters.add('s');
+		    unusedLetters.add('t');
+		    unusedLetters.add('u');
+		    unusedLetters.add('v');
+		    unusedLetters.add('w');
+		    unusedLetters.add('x');
+		    unusedLetters.add('y');
+		    unusedLetters.add('z');
 		
 		titel = new JPanel();
 	    titel.setSize(1000, 100);
 		
 		JLabel tLabel = new JLabel("Hang Man");
 	    tLabel.setHorizontalAlignment(JLabel.CENTER);
-	    tLabel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 40));
+	    tLabel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 60));
 	    
 	    titel.add(tLabel);
 	    
@@ -97,42 +103,53 @@ public class View extends JFrame implements KeyListener{
 	    addUnderlines(word);
 	    
 	    lifeDisplay = new JPanel();
-	    hangman = new JLabel("Leben: " + life);
+	    hangman = new JLabel();
 	    hangman.setFont(new Font(Font.MONOSPACED, Font.BOLD, 50));
 		hangman.setHorizontalAlignment(JLabel.CENTER);
 	    lifeDisplay.add(hangman);
 	    
-	    displayLetters = new JPanel();
-	    displayLetters.setLayout(new FlowLayout());
+	    JPanel displayLetters = new JPanel();
+	    displayLetters.setLayout(new GridLayout(1,1));
 	    
-	    JPanel displayUnusedLetters = new JPanel();
+	    displayUnusedLetters = new JPanel();
 	    displayUnusedLetters.setLayout(new GridLayout(2,1));
+	    displayUnusedLetters.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+	    displayUnusedLetters.setBackground(Color.blue);
 	    
 	    JLabel titelUnused = new JLabel("Unbenutzte Buchstaben:");
 	    titelUnused.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
 	    titelUnused.setHorizontalAlignment(JLabel.LEFT);
+	    titelUnused.setForeground(Color.black);
 	    
-	    unused = new JLabel("");
-	    unused.setFont(new Font(Font.MONOSPACED, Font.BOLD, 15));
-	    unused.setHorizontalAlignment(JLabel.CENTER);
+	    unused = new JLabel();
+	    unused.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
+	    unused.setForeground(Color.black);
 	    
 	    addUnusedLetters();
 	    
 	    displayUnusedLetters.add(titelUnused);
 	    displayUnusedLetters.add(unused);
 	    
-	    JPanel displayUsedLetters = new JPanel();
+	    displayUsedLetters = new JPanel();
 	    displayUsedLetters.setLayout(new GridLayout(2,1));
+	    displayUsedLetters.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+	    displayUsedLetters.setBackground(Color.red);
 	    
 	    JLabel titelUsed = new JLabel("Benutzte Buchstaben:");
 	    titelUsed.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
 	    titelUsed.setHorizontalAlignment(JLabel.LEFT);
+	    titelUsed.setForeground(Color.white);
 	    
-	    used = new JLabel("");
-	    used.setFont(new Font(Font.MONOSPACED, Font.BOLD, 15));
-	    used.setHorizontalAlignment(JLabel.CENTER);
+	    used = new JLabel();
+	    used.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
+	    used.setForeground(Color.white);
 	    
 	    addUsedLetters();
+	    
+	    titel.setBackground(Color.white);
+	    word.setBackground(Color.white);
+	    lifeDisplay.setBackground(Color.white);
+	    displayLetters.setBackground(Color.white);
 	    
 	    displayUsedLetters.add(titelUsed);
 	    displayUsedLetters.add(used);
@@ -140,19 +157,53 @@ public class View extends JFrame implements KeyListener{
 	    displayLetters.add(displayUnusedLetters);
 	    displayLetters.add(displayUsedLetters);
 	    
+	    hangman.setIcon(new ImageIcon("./src/life10.png"));
+	    JButton reset = new JButton();
+		reset.setBackground(Color.red);
+		reset.setText("von vorne Beginnen");
+		reset.setHorizontalAlignment(JLabel.CENTER);
+		reset.addActionListener(this.hangmanaction);
+		reset.setActionCommand("reset");
+		reset.setFocusable(false);
+		reset.setForeground(Color.black);
+		reset.setPreferredSize(new Dimension(200, 40));
+		JButton home = new JButton();
+		home.setBackground(Color.blue);
+		home.setText("zurück zum Hauptmenü");
+		home.setHorizontalAlignment(JLabel.CENTER);
+		home.addActionListener(this.hangmanaction);
+		home.setActionCommand("home");
+		home.setFocusable(false);
+		home.setForeground(Color.black);
+		home.setPreferredSize(new Dimension(200, 40));
+		
+		JPanel buttons = new JPanel();
+		buttons.setLayout(new FlowLayout());
+		buttons.setPreferredSize(new Dimension(1000, 50));
+		buttons.setBackground(Color.white);
+		
+		buttons.add(reset);
+		buttons.add(home);
+		
+		bottum = new JPanel();
+		bottum.setLayout(new GridLayout(2,1));
+		
+		bottum.add(displayLetters);
+		bottum.add(buttons);
+	    
 	    this.add(BorderLayout.NORTH, titel);
-	    this.add(BorderLayout.WEST, word);
+	    this.add(BorderLayout.CENTER, word);
 	    this.add(BorderLayout.EAST, lifeDisplay);
-	    this.add(BorderLayout.SOUTH, displayLetters);
+	    this.add(BorderLayout.SOUTH, bottum);
 	}
 
 	private void addUnderlines(JPanel parent){
 		int laenge = gesucht.length();
 		for(int i = 0; i < laenge; i++) {
-			letters[i] = new JLabel("");
-			letters[i].setBorder(BorderFactory.createLineBorder(Color.black, 1));
-			letters[i].setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
-			letters[i].setHorizontalAlignment(JLabel.CENTER);
+			letters[i] = new JLabel(" ");
+			letters[i].setBorder(BorderFactory.createLineBorder(Color.red, 1));
+			letters[i].setFont(new Font(Font.MONOSPACED, Font.BOLD, 60));
+			letters[i].setHorizontalAlignment(JLabel.LEFT);
         	parent.add(letters[i]);
 		}
 	}
@@ -160,13 +211,10 @@ public class View extends JFrame implements KeyListener{
 	private void addUnusedLetters() {
 		String letterUnused = "";
 		Iterator<Character> iterator = unusedLetters.iterator();
-		int linebreak = 0;
 		while (iterator.hasNext()) {
-			letterUnused = letterUnused + iterator.next() + ", ";
-			linebreak++;
-			if(linebreak == 7) {
-				letterUnused = letterUnused + '\n';
-				linebreak = 0;
+			letterUnused = letterUnused + iterator.next();
+			if(iterator.hasNext()) {
+				letterUnused = letterUnused + ", ";
 			}
 		}
 		unused.setText(letterUnused);
@@ -174,21 +222,17 @@ public class View extends JFrame implements KeyListener{
 
 	private void addUsedLetters() {
 		String letterUsed = "";
-		Iterator<Character> iterator = usedLetters.iterator();
-		int linebreak = 0;
+		Iterator<Character> iterator = usedLetters.iterator();	
 		while (iterator.hasNext()) {
-			letterUsed = letterUsed + iterator.next() + ", ";
-			linebreak++;
-			if(linebreak == 7) {
-				letterUsed = letterUsed + '\n';
-				linebreak = 0;
+			letterUsed = letterUsed + iterator.next();
+			if(iterator.hasNext()) {
+				letterUsed = letterUsed + ", ";
 			}
 		}
 		used.setText(letterUsed);
 	}
 	
 	private void check() {
-		hangman.setText("Leben: " + life);
 		if(life == 0) {
 			int answer = JOptionPane.showConfirmDialog(this, "Du hast verloren! Möchtest du es erneut versuchen?", null, JOptionPane.YES_NO_OPTION);
 			if(answer == 0)
@@ -206,17 +250,22 @@ public class View extends JFrame implements KeyListener{
 				reset();
 			}
 			else if(answer == 1){
-				this.setTitle("Fenster schließen");;
+				home();
 			}
 		}
 	}
 	
-	private void reset(){
+	public void reset(){
 		this.remove(titel);
 		this.remove(word);
 		this.remove(lifeDisplay);
-		this.remove(displayLetters);
-		initialise();
+		this.remove(bottum);
+		addComponents();
+		this.setVisible(true);
+	}
+	
+	public void home() {
+		setTitle("Kehre zurück zum Hauptmenü");
 	}
 	
 	@Override
@@ -238,6 +287,36 @@ public class View extends JFrame implements KeyListener{
 				}
 				if( nichtGefunden == laenge) {
 					life--;
+					if(life == 9) {
+						hangman.setIcon(new ImageIcon("./src/life9.png"));
+					}
+					else if(life == 8) {
+						hangman.setIcon(new ImageIcon("./src/life8.png"));
+					}
+					else if(life == 7) {
+						hangman.setIcon(new ImageIcon("./src/life7.png"));
+					}
+					else if(life == 6) {
+						hangman.setIcon(new ImageIcon("./src/life6.png"));
+					}
+					else if(life == 5) {
+						hangman.setIcon(new ImageIcon("./src/life5.png"));
+					}
+					else if(life == 4) {
+						hangman.setIcon(new ImageIcon("./src/life4.png"));
+					}
+					else if(life == 3) {
+						hangman.setIcon(new ImageIcon("./src/life3.png"));
+					}
+					else if(life == 2) {
+						hangman.setIcon(new ImageIcon("./src/life2.png"));
+					}
+					else if(life == 1) {
+						hangman.setIcon(new ImageIcon("./src/life1.png"));
+					}
+					else if(life == 0) {
+						hangman.setIcon(new ImageIcon("./src/life0.png"));
+					}			
 				}
 				usedLetters.add(key);
 				unusedLetters.remove(unusedLetters.indexOf(key));
@@ -249,7 +328,6 @@ public class View extends JFrame implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Automatisch generierter Methodenstub
 		
 	}
 

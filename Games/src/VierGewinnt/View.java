@@ -1,12 +1,16 @@
 package VierGewinnt;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -23,11 +27,12 @@ public class View extends JFrame implements ActionListener{
 	
 	public void initialise() {
 		
-		turn = random.nextInt(2);
+		
 	    setTitle("Vier Gewinnt");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
 	    setLocationRelativeTo(null);                         
 	    setSize(1200, 600);
+	    setExtendedState(JFrame.MAXIMIZED_BOTH); 
 	    
 	    addComponents();     
 
@@ -35,6 +40,7 @@ public class View extends JFrame implements ActionListener{
 	}
 	
 	private void addComponents() {
+		turn = random.nextInt(2);
 		game = new JPanel();
 		game.setLayout(new BorderLayout());
 		
@@ -52,29 +58,71 @@ public class View extends JFrame implements ActionListener{
 		
 		JPanel board = new JPanel();
 		board.setLayout(new GridLayout(7,6));
-		
+		board.setBackground(Color.blue);
+		board.setBorder(new EtchedBorder());
 		addBoard(board);
 		
+		JPanel east = new JPanel();		 
+		east.setPreferredSize(new Dimension(100, 500));
+		JPanel west = new JPanel();
+		west.setLayout(new FlowLayout());
+		west.setPreferredSize(new Dimension(100, 500));
+		JPanel placeButtons = new JPanel();
+		placeButtons.setLayout(new GridLayout(1,6));
+		placeButtons.setPreferredSize(new Dimension(1200, 50));
+		JPanel south = new JPanel();
+		south.setLayout(new GridLayout(2,1));
+		south.setPreferredSize(new Dimension(500, 100));
+		JPanel buttons = new JPanel();
+		buttons.setLayout(new FlowLayout());
+		JButton reset = new JButton();
+		reset.setBackground(Color.red);
+		reset.setText("von vorne Beginnen");
+		reset.setHorizontalAlignment(JLabel.CENTER);
+		reset.addActionListener(this);
+		reset.setActionCommand("reset");
+		reset.setFocusable(false);
+		reset.setForeground(Color.black);
+		reset.setPreferredSize(new Dimension(200, 40));
+		JButton home = new JButton();
+		home.setBackground(Color.blue);
+		home.setText("zurück zum Hauptmenü");
+		home.setHorizontalAlignment(JLabel.CENTER);
+		home.addActionListener(this);
+		home.setActionCommand("home");
+		home.setFocusable(false);
+		home.setForeground(Color.black);
+		home.setPreferredSize(new Dimension(200, 40));
+		buttons.add(reset);
+		buttons.add(home);
+		south.add(placeButtons);
+		south.add(buttons);
+		for(int i = 0; i < 6; i++) {
+			placeChip[i] = new JButton("/\\");
+			placeChip[i].addActionListener(this);	
+			placeChip[i].setFocusable(false);
+			placeChip[i].setBackground(Color.orange);
+			board.add(placeChip[i]);
+		}	
 		game.add(BorderLayout.NORTH, pTitel);
+		game.add(BorderLayout.WEST, west);
 		game.add(BorderLayout.CENTER, board);
+		game.add(BorderLayout.EAST, east);
+		game.add(BorderLayout.SOUTH, south);
 		
 		this.add(game);
 	}
 	
 	private void addBoard(JPanel parent) {
+		ImageIcon image = new ImageIcon("./src/fields.png");
 		for(int i = 0; i < 6; i++) {
 			for(int j = 0; j < 6; j++) {
 				field[i][j] = new JLabel(" ");
 				field[i][j].setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
-				field[i][j].setBorder(new LineBorder(Color.black));
-				field[i][j].setHorizontalAlignment(JLabel.CENTER);
+				field[i][j].setBorder(new LineBorder(Color.blue));				
+				field[i][j].setIcon(image);
 				parent.add(field[i][j]);
 			}
-		}
-		for(int i = 0; i < 6; i++) {
-			placeChip[i] = new JButton("/\\");
-			placeChip[i].addActionListener(this);
-			parent.add(placeChip[i]);
 		}
 	}
 	
@@ -83,9 +131,7 @@ public class View extends JFrame implements ActionListener{
 		int checkO = 0;
 		for(int k = 0; k < 6; k++) {
 			if( field[k][j].getText() == "X") {
-				if(checkO > 0) {
-					checkX = 0;
-				}
+				checkO = 0;
 				checkX++;
 				if(checkX > 3) {
 					System.out.println("Vertikal gewonnen!");
@@ -94,9 +140,7 @@ public class View extends JFrame implements ActionListener{
 				}
 			}
 			else if(field[k][j].getText() == "O") {
-				if(checkX > 0 || field[k][j].getText() == " ") {
-					checkO = 0;
-				}
+				checkX = 0;
 				checkO++;
 				if(checkO > 3) {
 					System.out.println("Vertikal gewonnen!");
@@ -113,9 +157,7 @@ public class View extends JFrame implements ActionListener{
 		checkX = 0;
 		for(int k = 0; k < 6; k++) {
 			if( field[i][k].getText() == "X") {
-				if(checkO > 0) {
-					checkX = 0;
-				}
+				checkO = 0;
 				checkX++;
 				if(checkX > 3) {
 					System.out.println("Horizontal gewonnen!");
@@ -124,9 +166,7 @@ public class View extends JFrame implements ActionListener{
 				}
 			}
 			else if(field[i][k].getText() == "O") {
-				if(checkX > 0 || field[i][k].getText() == " ") {
-					checkO = 0;
-				}
+				checkX = 0;
 				checkO++;
 				if(checkO > 3) {
 					System.out.println("Horizontal gewonnen!");
@@ -148,11 +188,9 @@ public class View extends JFrame implements ActionListener{
 		checkO = 0;
 		checkX = 0;
 		System.out.println("I2 ist: " + i2 + " , J2 ist: " + j2);
-		while(i2 > 0 && j2 < 6) {
+		while(i2 > -1 && j2 < 6) {
 			if( field[i2][j2].getText() == "X") {
-				if(checkO > 0) {
-					checkX = 0;
-				}
+				checkO = 0;
 				checkX++;
 				if(checkX > 3) {
 					System.out.println("Horizontal gewonnen!");
@@ -161,9 +199,7 @@ public class View extends JFrame implements ActionListener{
 				}
 			}
 			else if(field[i2][j2].getText() == "O") {
-				if(checkX > 0) {
-					checkO = 0;
-				}
+				checkX = 0;
 				checkO++;
 				if(checkO > 3) {
 					System.out.println("Horizontal gewonnen!");
@@ -180,7 +216,7 @@ public class View extends JFrame implements ActionListener{
 		}
 		i2 = i;
 		j2 = j;
-		while(i2 > 0 && j2 > 0) {
+		while(i2 > -1 && j2 > 0) {
 			i2--;
 			j2--;
 		}
@@ -189,9 +225,7 @@ public class View extends JFrame implements ActionListener{
 		System.out.println("I2 ist: " + i2 + " , J2 ist: " + j2);
 		while(i2 < 6 && j2 < 6) {
 			if( field[i2][j2].getText() == "X") {
-				if(checkO > 0) {
-					checkX = 0;
-				}
+				checkO = 0;
 				checkX++;
 				if(checkX > 3) {
 					System.out.println("Horizontal gewonnen!");
@@ -200,9 +234,7 @@ public class View extends JFrame implements ActionListener{
 				}
 			}
 			else if(field[i2][j2].getText() == "O") {
-				if(checkX > 0) {
-					checkO = 0;
-				}
+				checkX = 0;
 				checkO++;
 				if(checkO > 3 ) {
 					System.out.println("Horizontal gewonnen!");
@@ -232,7 +264,7 @@ public class View extends JFrame implements ActionListener{
 				reset();
 			}
 			else if(answer == 1){
-				this.setTitle("Fenster schließen");;
+				home();
 			}
 		}
 	}
@@ -244,7 +276,7 @@ public class View extends JFrame implements ActionListener{
 			reset();
 		}
 		else if(answer == 1){
-			this.setTitle("Fenster schließen");;
+			home();
 		}
 	}
 	
@@ -255,14 +287,20 @@ public class View extends JFrame implements ActionListener{
 			reset();
 		}
 		else if(answer == 1){
-			this.setTitle("Fenster schließen");;
+			home();
 		}
 	}
 	
-	private void reset() {
+	public void reset() {
 		this.remove(game);
-		initialise();
+		addComponents();
+		this.setVisible(true);
 	}
+	
+	public void home() {
+		this.setTitle("Fenster schließen");
+	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
@@ -274,6 +312,7 @@ public class View extends JFrame implements ActionListener{
 							System.out.println("I ist: " + i + " , J ist: " + j);
 							field[j][i].setText("O");
 							field[j][i].setForeground(Color.yellow);
+							field[j][i].setIcon(new ImageIcon("./src/fieldsYellow.png"));
 							turn = 1;
 							titel.setText("Spieler 2 ist dran");
 							check(j, i);
@@ -287,6 +326,7 @@ public class View extends JFrame implements ActionListener{
 							System.out.println("I ist: " + i + " , J ist: " + j);
 							field[j][i].setText("X");
 							field[j][i].setForeground(Color.red);
+							field[j][i].setIcon(new ImageIcon("./src/fieldsRed.png"));
 							turn = 0;
 							titel.setText("Spieler 1 ist dran");
 							check(j, i);
@@ -295,6 +335,12 @@ public class View extends JFrame implements ActionListener{
 					}	
 				}
 			}
-		}	
+		}
+		if(event.getActionCommand() == "reset") {
+			reset();
+		}
+		else if(event.getActionCommand() == "home") {
+			home();
+		}
 	}
 }
