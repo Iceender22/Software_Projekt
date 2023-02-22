@@ -6,5 +6,4 @@ public class mainM {
 		
 		new GUI();
 	}
-
 }

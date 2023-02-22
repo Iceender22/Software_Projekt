@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,8 @@ public class GUI {
 	JPanel panel;
 	JButton reset, home;
 	
+	JButton[] karten;
+	
 	public GUI() {
 	
 		fenster = new JFrame();
@@ -27,10 +30,17 @@ public class GUI {
 		fenster.setLocationRelativeTo(null);
 		fenster.setResizable(false);
 		
+		karten = new JButton[64];
+		for (int i = 0; i < 64; i++) {
+			karten[i] = new JButton();
+			karten[i].addActionListener(new ButtonListener(karten));
+		}
+		
 		panel = new JPanel();
-		//panel.setSize(750, 550);
-		panel.setBounds(100, 100, 600, 400);
-		panel.setBackground(Color.ORANGE);
+		panel.setLayout(new GridLayout(8, 8));
+		for (JButton button : karten) {
+			panel.add(button);
+		}
 		
 		// Spiel neu starten
 		reset = new JButton("Reset");
@@ -69,9 +79,9 @@ public class GUI {
 
 		panel.setVisible(true);
 		
-		panel.add(reset);
-		panel.add(home);
 		fenster.add(panel);
+		//panel.add(reset);
+		//panel.add(home);
 		
 		fenster.setVisible(true);
 	}
