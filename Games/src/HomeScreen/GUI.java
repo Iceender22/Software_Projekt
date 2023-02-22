@@ -1,38 +1,45 @@
 package HomeScreen;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import Pong.ballMovement;
-import Pong.collision;
-import Pong.playerMovement;
-import Pong.variablen;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class GUI {
 
 	JFrame screen;
-	JButton ttt, snake, sudoku, memory, tetris, pong;
+	JPanel panelback, panelfor;
+	JLabel background;
+	JButton ttt, snake, sudoku, memory, tetris, pong, svs, hang;
 	
 	public GUI() {
 		
 		screen = new JFrame();
-		screen.setSize(800, 600);
+		screen.setSize(590, 350);
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setLocationRelativeTo(null);
 		screen.setResizable(false);
 		screen.setTitle("Dies Spielesammlung!");
-		// TODO: Layout anpassen
-		screen.setLayout(new FlowLayout());
+		screen.setLayout(null);
+		
+		panelback = new JPanel();
+		panelback.setSize(590, 350);
+		
+		panelfor = new JPanel();
+		panelfor.setSize(590, 350);
+		panelfor.setLayout(null);
+		
+		background = new JLabel(new ImageIcon("res/homeback2.png"));
 		
 		ttt = new JButton("Tic Tac Toe");
-		ttt.setBounds(50, 50, 100, 25);
+		ttt.setBounds(98, 73, 100, 30);
 		ttt.setVisible(true);
-		ttt.setBackground(Color.CYAN);
+		ttt.setBackground(Color.ORANGE);
 		ttt.setForeground(Color.BLACK);
 		ttt.setFocusPainted(false);
 		ttt.addActionListener(new ActionListener() {
@@ -50,9 +57,9 @@ public class GUI {
 		});
 		
 		snake = new JButton("Snake");
-		snake.setBounds(200, 50, 100, 25);
+		snake.setBounds(246, 73, 100, 30);
 		snake.setVisible(true);
-		snake.setBackground(Color.CYAN);
+		snake.setBackground(Color.ORANGE);
 		snake.setForeground(Color.BLACK);
 		snake.setFocusPainted(false);
 		snake.addActionListener(new ActionListener() {
@@ -69,9 +76,9 @@ public class GUI {
 		});
 		
 		sudoku = new JButton("SuDoKu");
-		sudoku.setBounds(350, 50, 100, 25);
+		sudoku.setBounds(394, 73, 100, 30);
 		sudoku.setVisible(true);
-		sudoku.setBackground(Color.CYAN);
+		sudoku.setBackground(Color.ORANGE);
 		sudoku.setForeground(Color.BLACK);
 		sudoku.setFocusPainted(false);
 		sudoku.addActionListener(new ActionListener() {
@@ -87,9 +94,9 @@ public class GUI {
 		});
 		
 		memory = new JButton("Memory");
-		memory.setBounds(500, 50, 100, 25);
+		memory.setBounds(98, 161, 100, 30);
 		memory.setVisible(true);
-		memory.setBackground(Color.CYAN);
+		memory.setBackground(Color.ORANGE);
 		memory.setForeground(Color.BLACK);
 		memory.setFocusPainted(false);
 		memory.addActionListener(new ActionListener() {
@@ -105,9 +112,9 @@ public class GUI {
 		});
 		
 		tetris = new JButton("Tetris");
-		tetris.setBounds(50, 100, 100, 25);
+		tetris.setBounds(246, 161, 100, 30);
 		tetris.setVisible(true);
-		tetris.setBackground(Color.CYAN);
+		tetris.setBackground(Color.ORANGE);
 		tetris.setForeground(Color.BLACK);
 		tetris.setFocusPainted(false);
 		tetris.addActionListener(new ActionListener() {
@@ -123,9 +130,9 @@ public class GUI {
 		});
 		
 		pong = new JButton("Pong");
-		pong.setBounds(200, 100, 100, 25);
+		pong.setBounds(394, 161, 100, 30);
 		pong.setVisible(true);
-		pong.setBackground(Color.CYAN);
+		pong.setBackground(Color.ORANGE);
 		pong.setForeground(Color.BLACK);
 		pong.setFocusPainted(false);
 		pong.addActionListener(new ActionListener() {
@@ -145,12 +152,53 @@ public class GUI {
 			}
 		});
 		
-		screen.add(ttt);
-		screen.add(snake);
-		screen.add(sudoku);
-		screen.add(memory);
-		screen.add(tetris);
-		screen.add(pong);
+		svs = new JButton("Schiffe versenken");
+		svs.setBounds(122, 249, 150, 30);
+		svs.setVisible(true);
+		svs.setBackground(Color.ORANGE);
+		svs.setForeground(Color.BLACK);
+		svs.setFocusPainted(false);
+		svs.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				// Homescreen schließen
+				screen.dispose();
+				
+			}
+		});
+		
+		hang = new JButton("Hangman");
+		hang.setBounds(319, 249, 150, 30);
+		hang.setVisible(true);
+		hang.setBackground(Color.ORANGE);
+		hang.setForeground(Color.BLACK);
+		hang.setFocusPainted(false);
+		hang.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				// Homescreen schließen
+				screen.dispose();
+				
+			}
+		});
+		
+		panelback.add(background);
+		
+		screen.add(panelback);
+		screen.add(panelfor);
+		
+		panelfor.add(ttt);
+		panelfor.add(snake);
+		panelfor.add(sudoku);
+		panelfor.add(memory);
+		panelfor.add(tetris);
+		panelfor.add(pong);
+		panelfor.add(svs);
+		panelfor.add(hang);
 		
 		screen.setVisible(true);
 	}
