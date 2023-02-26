@@ -117,12 +117,12 @@ public class View extends JFrame implements KeyListener{
 	  {				
 		this.sudokuaction = sudokuaction;
 	    setTitle("Sudoku");
-	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      //Damit das Fenster sich auch schließt
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      //Damit das Fenster sich auch schlieï¿½t
 	    setLocationRelativeTo(null);                         
 	    setSize(500,500);
 	    setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    
-	    addComponents();      //Komponenten einfügen
+	    addComponents();      //Komponenten einfï¿½gen
 
 	    setVisible(true);    
 	  }
@@ -221,15 +221,15 @@ public class View extends JFrame implements KeyListener{
 		reset.addActionListener(this.sudokuaction);
 		reset.setActionCommand("reset");
 		reset.setFocusable(false);
-		reset.setForeground(Color.black);
+		reset.setForeground(Color.white);
 		JButton home = new JButton();
 		home.setBackground(Color.blue);
-		home.setText("zurück zum Hauptmenü");
+		home.setText("zurï¿½ck zum Hauptmenï¿½");
 		home.setHorizontalAlignment(JLabel.CENTER);
 		home.addActionListener(this.sudokuaction);
 		home.setActionCommand("home");
 		home.setFocusable(false);
-		home.setForeground(Color.black);
+		home.setForeground(Color.white);
 		
 		bottum.add(reset);
 		bottum.add(home);
@@ -283,7 +283,7 @@ public class View extends JFrame implements KeyListener{
 			}
 	    }
 		if(check == 81) {
-			int answer = JOptionPane.showConfirmDialog(this, "Du hast das Sudoku gelöst! Möchtest du ein neues lösen?", null, JOptionPane.YES_NO_OPTION);
+			int answer = JOptionPane.showConfirmDialog(this, "Du hast das Sudoku gelï¿½st! Mï¿½chtest du ein neues lï¿½sen?", null, JOptionPane.YES_NO_OPTION);
 			if(answer == 0)
 			{
 				reset();
@@ -306,7 +306,7 @@ public class View extends JFrame implements KeyListener{
 	}
 	
 	public void home() {
-		this.setTitle("Kehre zurück zum Hauptmenü");
+		this.setTitle("Kehre zurï¿½ck zum Hauptmenï¿½");
 	}
 
 	@Override

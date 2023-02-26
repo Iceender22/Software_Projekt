@@ -82,16 +82,16 @@ public class View extends JFrame implements ActionListener{
 		reset.addActionListener(this);
 		reset.setActionCommand("reset");
 		reset.setFocusable(false);
-		reset.setForeground(Color.black);
+		reset.setForeground(Color.white);
 		reset.setPreferredSize(new Dimension(200, 40));
 		JButton home = new JButton();
 		home.setBackground(Color.blue);
-		home.setText("zurück zum Hauptmenü");
+		home.setText("zurï¿½ck zum Hauptmenï¿½");
 		home.setHorizontalAlignment(JLabel.CENTER);
 		home.addActionListener(this);
 		home.setActionCommand("home");
 		home.setFocusable(false);
-		home.setForeground(Color.black);
+		home.setForeground(Color.white);
 		home.setPreferredSize(new Dimension(200, 40));
 		buttons.add(reset);
 		buttons.add(home);
@@ -114,7 +114,7 @@ public class View extends JFrame implements ActionListener{
 	}
 	
 	private void addBoard(JPanel parent) {
-		ImageIcon image = new ImageIcon("./src/fields.png");
+		ImageIcon image = new ImageIcon("./res/fields.png");
 		for(int i = 0; i < 6; i++) {
 			for(int j = 0; j < 6; j++) {
 				field[i][j] = new JLabel(" ");
@@ -258,7 +258,7 @@ public class View extends JFrame implements ActionListener{
 			}
 		}
 		if(checkTie == 36) {
-			int answer = JOptionPane.showConfirmDialog(this, "Unentschieden! Möchtet ihr noch eine Runde spielen?", null, JOptionPane.YES_NO_OPTION);
+			int answer = JOptionPane.showConfirmDialog(this, "Unentschieden! Mï¿½chtet ihr noch eine Runde spielen?", null, JOptionPane.YES_NO_OPTION);
 			if(answer == 0)
 			{
 				reset();
@@ -270,7 +270,7 @@ public class View extends JFrame implements ActionListener{
 	}
 	
 	private void yellowWin() {
-		int answer = JOptionPane.showConfirmDialog(this, "Spieler 2 hat gewonnen! Möchtet ihr noch eine Runde spielen?", null, JOptionPane.YES_NO_OPTION);
+		int answer = JOptionPane.showConfirmDialog(this, "Spieler 2 hat gewonnen! Mï¿½chtet ihr noch eine Runde spielen?", null, JOptionPane.YES_NO_OPTION);
 		if(answer == 0)
 		{
 			reset();
@@ -281,7 +281,7 @@ public class View extends JFrame implements ActionListener{
 	}
 	
 	private void redWin() {
-		int answer = JOptionPane.showConfirmDialog(this, "Spieler 1 hat gewonnen! Möchtet ihr noch eine Runde spielen?", null, JOptionPane.YES_NO_OPTION);
+		int answer = JOptionPane.showConfirmDialog(this, "Spieler 1 hat gewonnen! Mï¿½chtet ihr noch eine Runde spielen?", null, JOptionPane.YES_NO_OPTION);
 		if(answer == 0)
 		{
 			reset();
@@ -298,7 +298,7 @@ public class View extends JFrame implements ActionListener{
 	}
 	
 	public void home() {
-		this.setTitle("Fenster schließen");
+		this.setTitle("Fenster schlieï¿½en");
 	}
 
 

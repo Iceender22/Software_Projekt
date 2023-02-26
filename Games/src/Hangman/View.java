@@ -123,7 +123,7 @@ public class View extends JFrame implements KeyListener{
 	    
 	    unused = new JLabel();
 	    unused.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
-	    unused.setForeground(Color.black);
+	    unused.setForeground(Color.white);
 	    
 	    addUnusedLetters();
 	    
@@ -157,7 +157,7 @@ public class View extends JFrame implements KeyListener{
 	    displayLetters.add(displayUnusedLetters);
 	    displayLetters.add(displayUsedLetters);
 	    
-	    hangman.setIcon(new ImageIcon("./src/life10.png"));
+	    hangman.setIcon(new ImageIcon("./res/life10.png"));
 	    JButton reset = new JButton();
 		reset.setBackground(Color.red);
 		reset.setText("von vorne Beginnen");
@@ -165,16 +165,16 @@ public class View extends JFrame implements KeyListener{
 		reset.addActionListener(this.hangmanaction);
 		reset.setActionCommand("reset");
 		reset.setFocusable(false);
-		reset.setForeground(Color.black);
+		reset.setForeground(Color.white);
 		reset.setPreferredSize(new Dimension(200, 40));
 		JButton home = new JButton();
 		home.setBackground(Color.blue);
-		home.setText("zurück zum Hauptmenü");
+		home.setText("zurï¿½ck zum Hauptmenï¿½");
 		home.setHorizontalAlignment(JLabel.CENTER);
 		home.addActionListener(this.hangmanaction);
 		home.setActionCommand("home");
 		home.setFocusable(false);
-		home.setForeground(Color.black);
+		home.setForeground(Color.white);
 		home.setPreferredSize(new Dimension(200, 40));
 		
 		JPanel buttons = new JPanel();
@@ -234,17 +234,17 @@ public class View extends JFrame implements KeyListener{
 	
 	private void check() {
 		if(life == 0) {
-			int answer = JOptionPane.showConfirmDialog(this, "Du hast verloren! Möchtest du es erneut versuchen?", null, JOptionPane.YES_NO_OPTION);
+			int answer = JOptionPane.showConfirmDialog(this, "Du hast verloren! Mï¿½chtest du es erneut versuchen?", null, JOptionPane.YES_NO_OPTION);
 			if(answer == 0)
 			{
 				reset();
 			}
 			else if(answer == 1){
-				this.setTitle("Fenster schließen");;
+				this.setTitle("Fenster schlieï¿½en");;
 			}
 		}
 		else if( gefunden == gesucht.length()) {
-			int answer = JOptionPane.showConfirmDialog(this, "Du hast das Wort gefunden! Möchtest du nochmal?", null, JOptionPane.YES_NO_OPTION);
+			int answer = JOptionPane.showConfirmDialog(this, "Du hast das Wort gefunden! Mï¿½chtest du nochmal?", null, JOptionPane.YES_NO_OPTION);
 			if(answer == 0)
 			{
 				reset();
@@ -265,7 +265,7 @@ public class View extends JFrame implements KeyListener{
 	}
 	
 	public void home() {
-		setTitle("Kehre zurück zum Hauptmenü");
+		setTitle("Kehre zurï¿½ck zum Hauptmenï¿½");
 	}
 	
 	@Override
@@ -288,34 +288,34 @@ public class View extends JFrame implements KeyListener{
 				if( nichtGefunden == laenge) {
 					life--;
 					if(life == 9) {
-						hangman.setIcon(new ImageIcon("./src/life9.png"));
+						hangman.setIcon(new ImageIcon("./res/life9.png"));
 					}
 					else if(life == 8) {
-						hangman.setIcon(new ImageIcon("./src/life8.png"));
+						hangman.setIcon(new ImageIcon("./res/life8.png"));
 					}
 					else if(life == 7) {
-						hangman.setIcon(new ImageIcon("./src/life7.png"));
+						hangman.setIcon(new ImageIcon(".res/life7.png"));
 					}
 					else if(life == 6) {
-						hangman.setIcon(new ImageIcon("./src/life6.png"));
+						hangman.setIcon(new ImageIcon("./res/life6.png"));
 					}
 					else if(life == 5) {
-						hangman.setIcon(new ImageIcon("./src/life5.png"));
+						hangman.setIcon(new ImageIcon("./res/life5.png"));
 					}
 					else if(life == 4) {
-						hangman.setIcon(new ImageIcon("./src/life4.png"));
+						hangman.setIcon(new ImageIcon("./res/life4.png"));
 					}
 					else if(life == 3) {
-						hangman.setIcon(new ImageIcon("./src/life3.png"));
+						hangman.setIcon(new ImageIcon("./res/life3.png"));
 					}
 					else if(life == 2) {
-						hangman.setIcon(new ImageIcon("./src/life2.png"));
+						hangman.setIcon(new ImageIcon("./res/life2.png"));
 					}
 					else if(life == 1) {
-						hangman.setIcon(new ImageIcon("./src/life1.png"));
+						hangman.setIcon(new ImageIcon("./res/life1.png"));
 					}
 					else if(life == 0) {
-						hangman.setIcon(new ImageIcon("./src/life0.png"));
+						hangman.setIcon(new ImageIcon("./res/life0.png"));
 					}			
 				}
 				usedLetters.add(key);
