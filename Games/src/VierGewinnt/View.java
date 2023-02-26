@@ -48,9 +48,11 @@ public class View extends JFrame implements ActionListener{
 		titel = new JLabel("Vier Gewinnt");
 		if(turn == 0) {
 			titel.setText("Spieler 1 ist dran");
+			titel.setForeground(Color.red);
 		}
 		else {
 			titel.setText("Spieler 2 ist dran");
+			titel.setForeground(Color.yellow);
 		}
 		titel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 40));
 		
@@ -312,9 +314,10 @@ public class View extends JFrame implements ActionListener{
 							System.out.println("I ist: " + i + " , J ist: " + j);
 							field[j][i].setText("O");
 							field[j][i].setForeground(Color.yellow);
-							field[j][i].setIcon(new ImageIcon("./src/fieldsYellow.png"));
+							field[j][i].setIcon(new ImageIcon("./res/fieldsYellow.png"));
 							turn = 1;
 							titel.setText("Spieler 2 ist dran");
+							titel.setForeground(Color.yellow);
 							check(j, i);
 							break;
 						}
@@ -326,9 +329,10 @@ public class View extends JFrame implements ActionListener{
 							System.out.println("I ist: " + i + " , J ist: " + j);
 							field[j][i].setText("X");
 							field[j][i].setForeground(Color.red);
-							field[j][i].setIcon(new ImageIcon("./src/fieldsRed.png"));
+							field[j][i].setIcon(new ImageIcon("./res/fieldsRed.png"));
 							turn = 0;
 							titel.setText("Spieler 1 ist dran");
+							titel.setForeground(Color.red);
 							check(j, i);
 							break;
 						}
