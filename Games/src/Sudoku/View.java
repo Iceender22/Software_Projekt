@@ -9,101 +9,45 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.*;
 
 public class View extends JFrame implements KeyListener{
-	int[][][][] sudokus = 
-		{
-			{
-				{
-					{0, 5, 8, 1, 0, 6, 4, 0, 0},
-					{0, 4, 1, 8, 5, 9, 0, 0, 0},
-					{7, 9, 6, 2, 3, 4, 5, 0, 1},
-					{8, 0, 0, 3, 9, 0, 6, 4, 2},
-					{0, 6, 0, 4, 2, 8, 1, 9, 0},
-					{4, 2, 0, 6, 1, 7, 8, 3, 5},
-					{0, 3, 0, 0, 0, 0, 7, 6, 8},
-					{9, 8, 4, 7, 0, 0, 2, 5, 3},
-					{0, 7, 0, 5, 0, 0, 9, 0, 0},		
-				},
-				{
-					{3, 5, 8, 1, 7, 6, 4, 2, 9},
-					{2, 4, 1, 8, 5, 9, 3, 7, 6},
-					{7, 9, 6, 2, 3, 4, 5, 8, 1},
-					{8, 1, 7, 3, 9, 5, 6, 4, 2},
-					{5, 6, 3, 4, 2, 8, 1, 9, 7},
-					{4, 2, 9, 6, 1, 7, 8, 3, 5},
-					{1, 3, 5, 9, 4, 2, 7, 6, 8},
-					{9, 8, 4, 7, 6, 1, 2, 5, 3},
-					{6, 7, 2, 5, 8, 3, 9, 1, 4},
-				}
-			},
-			{
-				{
-			
-					{9, 3, 4, 0, 1, 0, 6, 0, 0},
-					{7, 5, 1, 0, 0, 0, 2, 4, 9},
-					{0, 8, 0, 9, 0, 4, 3, 5, 0},
-					{4, 9, 0, 0, 8, 6, 1, 2, 5},
-					{0, 0, 0, 0, 0, 0, 0, 3, 0},
-					{5, 2, 0, 0, 9, 1, 8, 6, 7},
-					{0, 4, 0, 1, 0, 7, 5, 8, 0},
-					{2, 6, 8, 0, 0, 0, 7, 1, 3},
-					{1, 7, 5, 0, 6, 0, 4, 0, 0},		
-				},
-				{
-					{9, 3, 4, 2, 1, 5, 6, 7, 8},
-					{7, 5, 1, 6, 3, 8, 2, 4, 9},
-					{6, 8, 2, 9, 7, 4, 3, 5, 1},
-					{4, 9, 7, 3, 8, 6, 1, 2, 5},
-					{8, 1, 6, 7, 5, 2, 9, 3, 4},
-					{5, 2, 3, 4, 9, 1, 8, 6, 7},
-					{3, 4, 9, 1, 2, 7, 5, 8, 6},
-					{2, 6, 8, 5, 4, 9, 7, 1, 3},
-					{1, 7, 5, 8, 6, 3, 4, 9, 2},
-				}
-			},
-			{
-				{
-				
-						{2, 8, 6, 9, 1, 5, 7, 4, 3},
-						{1, 9, 7, 4, 6, 3, 5, 2, 8},
-						{5, 3, 4, 8, 0, 7, 1, 6, 9},
-						{0, 0, 5, 2, 8, 9, 3, 0, 0},
-						{0, 1, 9, 0, 7, 0, 4, 5, 0},
-						{0, 7, 2, 5, 0, 1, 9, 8, 0},
-						{0, 6, 1, 7, 0, 8, 2, 9, 0},
-						{2, 6, 8, 0, 0, 0, 6, 3, 0},
-						{1, 7, 5, 6, 6, 2, 8, 1, 4},		
-					},
-					{
-						{9, 3, 4, 2, 1, 5, 6, 7, 8},
-						{7, 5, 1, 6, 3, 8, 2, 4, 9},
-						{6, 8, 2, 9, 7, 4, 3, 5, 1},
-						{4, 9, 7, 3, 8, 6, 1, 2, 5},
-						{8, 1, 6, 7, 5, 2, 9, 3, 4},
-						{5, 2, 3, 4, 9, 1, 8, 6, 7},
-						{3, 4, 9, 1, 2, 7, 5, 8, 6},
-						{2, 6, 8, 5, 4, 9, 7, 1, 3},
-						{1, 7, 5, 8, 6, 3, 4, 9, 2},
-					}
-			}
-		};
-	/*int[][] board = {
-			{7, 0, 2, 0, 5, 0, 6, 0, 0},
-			{0, 0, 0, 0, 0, 3, 0, 0, 0},
-			{1, 0, 0, 0, 0, 9, 5, 0, 0},
-			{8, 0, 0, 0, 0, 0, 0, 9, 0},
-			{0, 4, 3, 0, 0, 0, 7, 5, 0},
-			{0, 9, 0, 0, 0, 0, 0, 0, 8},
-			{0, 0, 9, 7, 0, 0, 0, 0, 5},
-			{0, 0, 0, 2, 0, 0, 0, 0, 0},
-			{0, 0, 7, 0, 4, 0, 2, 0, 3},
-	};*/
-	int[][] board;
-	int[][] solution;
+	int[][] sudokus = {
+			{3, 5, 8, 1, 7, 6, 4, 2, 9},
+			{2, 4, 1, 8, 5, 9, 3, 7, 6},
+			{7, 9, 6, 2, 3, 4, 5, 8, 1},
+			{8, 1, 7, 3, 9, 5, 6, 4, 2},
+			{5, 6, 3, 4, 2, 8, 1, 9, 7},
+			{4, 2, 9, 6, 1, 7, 8, 3, 5},
+			{1, 3, 5, 9, 4, 2, 7, 6, 8},
+			{9, 8, 4, 7, 6, 1, 2, 5, 3},
+			{6, 7, 2, 5, 8, 3, 9, 1, 4}
+	};
+	int[][] solution = {
+			{3, 5, 8, 1, 7, 6, 4, 2, 9},
+			{2, 4, 1, 8, 5, 9, 3, 7, 6},
+			{7, 9, 6, 2, 3, 4, 5, 8, 1},
+			{8, 1, 7, 3, 9, 5, 6, 4, 2},
+			{5, 6, 3, 4, 2, 8, 1, 9, 7},
+			{4, 2, 9, 6, 1, 7, 8, 3, 5},
+			{1, 3, 5, 9, 4, 2, 7, 6, 8},
+			{9, 8, 4, 7, 6, 1, 2, 5, 3},
+			{6, 7, 2, 5, 8, 3, 9, 1, 4}
+	};
+	int[][] board = {
+			{3, 5, 8, 1, 7, 6, 4, 2, 9},
+			{2, 4, 1, 8, 5, 9, 3, 7, 6},
+			{7, 9, 6, 2, 3, 4, 5, 8, 1},
+			{8, 1, 7, 3, 9, 5, 6, 4, 2},
+			{5, 6, 3, 4, 2, 8, 1, 9, 7},
+			{4, 2, 9, 6, 1, 7, 8, 3, 5},
+			{1, 3, 5, 9, 4, 2, 7, 6, 8},
+			{9, 8, 4, 7, 6, 1, 2, 5, 3},
+			{6, 7, 2, 5, 8, 3, 9, 1, 4}
+	};
 	JTextField[][] boxes;
 	JPanel titel;
 	JPanel left;
@@ -117,20 +61,18 @@ public class View extends JFrame implements KeyListener{
 	  {				
 		this.sudokuaction = sudokuaction;
 	    setTitle("Sudoku");
-	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      //Damit das Fenster sich auch schlieï¿½t
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      //Damit das Fenster sich auch schließt
 	    setLocationRelativeTo(null);                         
 	    setSize(500,500);
 	    setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    
-	    addComponents();      //Komponenten einfï¿½gen
+	    addComponents();      //Komponenten einfügen
 
 	    setVisible(true);    
 	  }
 	
 	private void addComponents() {
-		int irandom = random.nextInt(sudokus.length);
-		board = sudokus[irandom][0];
-		solution = sudokus[irandom][1];
+		initialiseBoard();
 		boxes = new JTextField[9][9];
 	    this.setLayout(new BorderLayout());
 		
@@ -221,15 +163,15 @@ public class View extends JFrame implements KeyListener{
 		reset.addActionListener(this.sudokuaction);
 		reset.setActionCommand("reset");
 		reset.setFocusable(false);
-		reset.setForeground(Color.white);
+		reset.setForeground(Color.black);
 		JButton home = new JButton();
 		home.setBackground(Color.blue);
-		home.setText("zurï¿½ck zum Hauptmenï¿½");
+		home.setText("zurück zum Hauptmenü");
 		home.setHorizontalAlignment(JLabel.CENTER);
 		home.addActionListener(this.sudokuaction);
 		home.setActionCommand("home");
 		home.setFocusable(false);
-		home.setForeground(Color.white);
+		home.setForeground(Color.black);
 		
 		bottum.add(reset);
 		bottum.add(home);
@@ -244,6 +186,46 @@ public class View extends JFrame implements KeyListener{
 	    this.add(BorderLayout.CENTER, sudoku);
 	    this.add(BorderLayout.EAST, right);
 	    this.add(BorderLayout.SOUTH, bottum);
+	}
+	
+	private void initialiseBoard() {
+		ArrayList<Integer> digits = new ArrayList<Integer>();
+		int randomInt;
+		for(int i = 0; i < 9; i++) {                              /*erzeugen einer Liste mit zufälliger		 																			*/
+			randomInt = random.nextInt(9) + 1;                    /*Anordnung der Zahlen 1-9*/ 
+			while(digits.contains(randomInt)) {
+				randomInt = random.nextInt(9) + 1;
+			}
+			digits.add(randomInt);
+		}
+		for(int i = 1; i < 10; i++) {
+			for(int j = 0; j < 9; j++) {
+				for(int k = 0; k < 9;k++) {
+					if(sudokus[j][k] == i) {
+						solution[j][k] = digits.get(i-1);           /*Jede Zahl im Mustersudoku Brett wird mit der Zahl ersetzt,*/
+					}                                               /*welche die Position in der zufällig erzeugten Liste hat*/  
+				}                                                   /*Dies wird im Lösungsarray gespeichert.*/
+			}
+		}
+		int place;
+		for (int i = 0; i < 3; i++) {                               /*For Schleife um an zufälligen Stellen im Brett ein Feld zu leereen.*/ 
+			int noNumber = 0;                                       /*For Schleife geht drei Blöcke horizontal durch um bestes Ergebnis zu erzeugen*/
+			int numbers = 26;
+			for (int j = 0; j < 3; j++) {
+				for(int k = 0; k < 9; k++) {
+					place = random.nextInt(noNumber+numbers);
+					if(place < 7) {
+						board[j+i*3][k] = 0;
+						noNumber++;
+					}
+					else {
+						int number = solution[j+i*3][k];
+						board[j+i*3][k] = number;
+						numbers--;
+					}
+				}
+			}
+		}
 	}
 	
 	private void addLabels(int box, JPanel panel)
@@ -272,18 +254,16 @@ public class View extends JFrame implements KeyListener{
 		int check = 0;
 		for (int i = 0; i < 9 ; i++)
 	    {
-			for(int j = 0; j < 9; j++) {
-					if(boxes[i][j].getText().equals(""))
-					{	
-					}
-					else if(Integer.parseInt(boxes[i][j].getText()) == solution[i][j])
+			for(int j = 0; j < 9; j++) {                               				/*For Schleife geht jedes Feld im Brett durch und vergleicht es mit dem*/					
+					if(Integer.parseInt(boxes[i][j].getText()) == solution[i][j]) 	/*Lösungsbrett. Sind die Zahlen in dem Feld gleich, so wird sie check Variable erhöht.*/
 					{
 						check++;		
 					}
 			}
 	    }
+		System.out.println("Check: " + check);
 		if(check == 81) {
-			int answer = JOptionPane.showConfirmDialog(this, "Du hast das Sudoku gelï¿½st! Mï¿½chtest du ein neues lï¿½sen?", null, JOptionPane.YES_NO_OPTION);
+			int answer = JOptionPane.showConfirmDialog(this, "Du hast das Sudoku gelöst! Möchtest du ein neues lösen?", null, JOptionPane.YES_NO_OPTION); /*Abfrage ob nochmal gespielt werden möchte oder nicht*/
 			if(answer == 0)
 			{
 				reset();
@@ -292,7 +272,6 @@ public class View extends JFrame implements KeyListener{
 				home();
 			}
 		}
-		System.out.println("Check: " + check);
 	}
 	
 	public void reset(){
@@ -306,7 +285,7 @@ public class View extends JFrame implements KeyListener{
 	}
 	
 	public void home() {
-		this.setTitle("Kehre zurï¿½ck zum Hauptmenï¿½");
+		this.setTitle("Kehre zurück zum Hauptmenü");
 	}
 
 	@Override
@@ -318,8 +297,8 @@ public class View extends JFrame implements KeyListener{
 				{
 					int length  = boxes[i][j].getText().length();
 					char key = event.getKeyChar();
-					if(key>='1' && key <= '9') {
-						if(length < 1) {
+					if(key>='1' && key <= '9') {                     //Überprüfung, ob es sich bei der eingegebenen Taste um eine Ziffer ungleich null handelt
+						if(length < 1) {                             
 							boxes[i][j].setEditable(true);
 						}
 						else {
@@ -327,7 +306,7 @@ public class View extends JFrame implements KeyListener{
 							boxes[i][j].setBackground(Color.white);
 						}
 					}
-					else if(key == KeyEvent.VK_DELETE || key == KeyEvent.VK_BACK_SPACE) {
+					else if(key == KeyEvent.VK_DELETE || key == KeyEvent.VK_BACK_SPACE) {       //Tasten zum löschen der Zahl
 						boxes[i][j].setEditable(true);
 					}
 					else

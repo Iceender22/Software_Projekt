@@ -21,17 +21,113 @@ public class View extends JFrame implements ActionListener{
 	JLabel tLabel;
 	JButton[][] aiButtons = new JButton[11][11];
 	JLabel[][] playerLabels = new JLabel[11][11];
+	String[][][] selectStringShiff ={ {
+			{"S", "X", "X", "X", "E", " ", "S", "E", " ", " "}, //1x5, 1x2
+			{"SH", " ", "SH", " ", "S", "X", "E", " ", " ", " "}, //2x3, 1x2
+			{"X", " ", "EH", " ", " ", " ", " ", " ", " ", " "},
+			{"EH", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+			{" ", " ", "SH", " ", "S", "X", "X", "E", " ", " "}, //1x4, 1x2
+			{" ", " ", "EH", " ", " ", " ", " ", " ", " ", " "},
+			{"SH", " ", " ", " ", " ", " ", " ", "S", "X", "E"}, //1x4, 1x3
+			{"X", " ", " ", " ", "SH", " ", " ", " ", " ", " "},
+			{"X", " ", " ", " ", "EH", " ", " ", " ", " ", " "},
+			{"EH", " ", " ", " ", " ", "S", "X", "E", " ", " "}
+	},
+	{
+			{"S", "X", "X", "X", "E", " ", " ", " ", "SH", " "}, //1x5, 1x2
+			{" ", " ", " ", " ", " ", "SH", " ", " ", "X", " "}, //2x3, 1x2
+			{" ", " ", " ", " ", " ", "EH", " ", " ", "EH", " "},
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+			{" ", "S", "X", "E", "S", "X", "X", "E", " ", " "}, //1x4, 1x2
+			{" ", " ", "SH", " ", " ", " ", " ", " ", " ", " "},
+			{"SH", " ", "EH", " ", " ", " ", "S", "X", "X", "E"}, //1x4, 1x3
+			{"EH", " ", " ", "S", "E", " ", " ", " ", " ", " "},
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+			{" ", " ", "S", "X", "E", "S", "X", "E", " ", " "}
+	},
+	{
+			{"SH", " ", "SH", " ", "S", "X", "E", " ", " ", "SH"}, //1x5, 1x2
+			{"X", " ", "X", " ", " ", " ", " ", " ", " ", "EH"}, //2x3, 1x2
+			{"X", " ", "EH", " ", " ", " ", " ", " ", " ", " "},
+			{"EH", " ", " ", " ", " ", "S", "X", "X", "E", " "},
+			{" ", " ", "SH", " ", " ", " ", " ", " ", " ", " "}, //1x4, 1x2
+			{" ", " ", "EH", " ", " ", " ", " ", " ", " ", " "},
+			{"S", "X", "E", " ", " ", " ", " ", "S", "X", "E"}, //1x4, 1x3
+			{" ", "SH", " ", " ", "SH", " ", " ", " ", " ", " "},
+			{" ", "EH", " ", " ", "EH", " ", " ", " ", " ", " "},
+			{" ", " ", " ", "S", "X", "X", "X", "E", " ", " "}
+	},
+	{
+			{"S", "E", " ", "S", "X", "E", " ", " ", " ", "SH"}, //1x5, 1x2
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", "X"}, //2x3, 1x2
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", "X"},
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", "X"},
+			{" ", "S", "E", " ", "S", "X", "X", "E", " ", "EH"}, //1x4, 1x2
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+			{" ", " ", " ", "S", "X", "E", " ", "S", "E", "SH"}, //1x4, 1x3
+			{" ", " ", " ", " ", "SH", " ", " ", " ", " ", "X"},
+			{"S", "X", "E", " ", "EH", " ", " ", " ", " ", "X"},
+			{" ", " ", " ", " ", " ", "S", "X", "E", " ", "EH"}
+	},
+	{
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "}, //1x5, 1x2
+			{" ", "S", "X", "X", "E", " ", " ", " ", " ", " "}, //2x3, 1x2
+			{" ", " ", " ", " ", " ", "S", "X", "X", "E", " "},
+			{" ", "S", "E", " ", " ", " ", " ", " ", " ", "SH"},
+			{" ", " ", " ", "S", "X", "X", "X", "E", " ", "X"}, //1x4, 1x2
+			{" ", " ", "SH", " ", " ", " ", " ", " ", " ", "EH"},
+			{" ", " ", "X", "SH", " ", "SH", " ", "S", "E", " "}, //1x4, 1x3
+			{"SH", " ", "EH", "EH", " ", "X", " ", " ", " ", " "},
+			{"X", " ", " ", " ", " ", "EH", " ", "S", "E", " "},
+			{"EH", " ", " ", " ", " ", " ", " ", " ", " ", " "}
+	},
+	{
+			{" ", "SH", " ", " ", " ", " ", " ", " ", "SH", " "}, //1x5, 1x2
+			{" ", "X", " ", " ", "S", "E", " ", " ", "X", " "}, //2x3, 1x2
+			{" ", "X", " ", "SH", " ", " ", " ", " ", "X", " "},
+			{" ", "EH", " ", "EH", " ", " ", " ", " ", "X", " "},
+			{" ", " ", "SH", " ", "S", "E", " ", " ", "EH", " "}, //1x4, 1x2
+			{" ", " ", "X", " ", " ", " ", "S", "E", " ", " "},
+			{" ", " ", "EH", " ", " ", " ", "S", "X", "X", "E"}, //1x4, 1x3
+			{" ", "SH", " ", "S", "X", "E", " ", " ", " ", " "},
+			{" ", "X", " ", " ", " ", " ", "S", "X", "E", " "},
+			{" ", "EH", " ", " ", " ", " ", " ", " ", " ", " "}
+	},
+	{
+			{"SH", "S", "X", "E", " ", " ", " ", "SH", " ", "SH"}, //1x5, 1x2
+			{"X", " ", " ", " ", " ", " ", " ", "X", " ", "X"}, //2x3, 1x2
+			{"X", " ", " ", " ", " ", " ", " ", "EH", " ", "X"},
+			{"EH", " ", " ", "S", "E", " ", " ", " ", " ", "EH"},
+			{" ", " ", " ", " ", " ", " ", "SH", " ", " ", " "}, //1x4, 1x2
+			{"SH", " ", " ", " ", " ", " ", "EH", " ", " ", " "},
+			{"X", " ", " ", " ", " ", " ", " ", " ", " ", " "}, //1x4, 1x3
+			{"X", " ", "SH", " ", "S", "E", " ", " ", "SH", "SH"},
+			{"X", " ", "EH", " ", " ", " ", " ", " ", "X", "X"},
+			{"EH", " ", " ", " ", " ", " ", " ", " ", "EH", "EH"}
+	},
+	{
+			{" ", " ", " ", " ", " ", " ", " ", " ", "S", "E"}, //1x5, 1x2
+			{" ", "SH", " ", " ", "SH", "S", "X", "E", " ", " "}, //2x3, 1x2
+			{" ", "EH", " ", " ", "X", " ", " ", "SH", " ", " "},
+			{" ", " ", " ", " ", "X", " ", " ", "X", " ", " "},
+			{" ", "S", "X", "E", "EH", " ", " ", "EH", " ", " "}, //1x4, 1x2
+			{" ", " ", " ", "S", "X", "X", "X", "E", " ", " "},
+			{" ", "S", "X", "X", "E", " ", "SH", " ", " ", " "}, //1x4, 1x3
+			{" ", " ", " ", " ", " ", " ", "X", " ", " ", " "},
+			{" ", "SH", " ", " ", " ", " ", "EH", " ", " ", "SH"},
+			{" ", "EH", " ", " ", " ", " ", " ", " ", " ", "EH"}
+	}};
 	String[][] playerStringShiff = {
-			{"X", "X", "X", "X", "X", " ", "X", "X", " ", " "}, //1x5, 1x2
-			{"X", " ", "X", " ", "X", "X", "X", " ", " ", " "}, //2x3, 1x2
-			{"X", " ", "X", " ", " ", " ", " ", " ", " ", " "},
-			{"X", " ", " ", " ", " ", " ", " ", " ", " ", " "},
-			{" ", " ", "X", " ", "X", "X", "X", "X", " ", " "}, //1x4, 1x2
-			{" ", " ", "X", " ", " ", " ", " ", " ", " ", " "},
-			{"X", " ", " ", " ", " ", " ", " ", "X", "X", "X"}, //1x4, 1x3
-			{"X", " ", " ", " ", "X", " ", " ", " ", " ", " "},
-			{"X", " ", " ", " ", "X", " ", " ", " ", " ", " "},
-			{"X", " ", " ", " ", " ", "X", "X", "X", " ", " "}
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "}, //1x5, 1x2
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "}, //2x3, 1x2
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "}, //1x4, 1x2
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "}, //1x4, 1x3
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "}
 	};
 	String[][] aiStringShiff = {
 			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "}, //1x5, 1x2
@@ -45,6 +141,7 @@ public class View extends JFrame implements ActionListener{
 			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
 			{" ", " ", " ", " ", " ", " ", " ", " ", " ", " "}
 	};
+	JButton[][] shiffSelectButtons;
 	Random random = new Random();
 	int turn;
 	int foundRow;
@@ -67,8 +164,9 @@ public class View extends JFrame implements ActionListener{
 	    setTitle("Schiffe versenken");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      //Damit das Fenster sich auch schließt
 	    setLocationRelativeTo(null);                         
-	    setSize(1200, 600);
-	    setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    setSize(1400, 750);
+	    setResizable(false);
+
 	    
 	    addComponents();      //Komponenten einfügen
 
@@ -97,20 +195,21 @@ public class View extends JFrame implements ActionListener{
 		
 		JPanel titel = new JPanel();
 		
-		tLabel = new JLabel("Wähle die Position deiner Schiffe aus!");
+		tLabel = new JLabel("Wähle dir ein Schiffsfeld aus!");
 		tLabel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 40));
 		tLabel.setHorizontalAlignment(JLabel.CENTER);
 		tLabel.setForeground(Color.decode("#009900"));
 		
 		titel.add(tLabel);
 		
-		JPanel selectShiff = new JPanel();
-		selectShiff.setLayout(new GridLayout(7, 1));
+		JPanel buttons = new JPanel();
+		buttons.setLayout(new FlowLayout());
+		buttons.setBackground(Color.black);
 		
-		addShiffSelect(selectShiff);
+		addButtons(buttons);
 		
 		playerBoard = new JPanel();
-		playerBoard.setLayout(new GridLayout(11, 11));
+		playerBoard.setLayout(new GridLayout(2, 4));
 		playerBoard.setBackground(Color.black);
 		
 		addPlayerBoard(playerBoard);
@@ -121,74 +220,17 @@ public class View extends JFrame implements ActionListener{
 		
 		addAiBoard(aiBoard);
 		
-		JPanel bottum = new JPanel();
-		
 		titel.setBackground(Color.black);
-		selectShiff.setBackground(Color.black);
-		bottum.setBackground(Color.black);
 		
 		game.add(BorderLayout.NORTH, titel);
-	    game.add(BorderLayout.WEST, selectShiff);
 	    game.add(BorderLayout.CENTER, playerBoard);
-	    game.add(BorderLayout.SOUTH, bottum);
+	    game.add(BorderLayout.SOUTH, buttons);
 		
 		this.add(game);
 		aiShiffSet();
 	}
 	
-	private void addShiffSelect(JPanel panel){
-		JPanel twoPanel = new JPanel();
-		twoPanel.setLayout(new FlowLayout());
-		twoPanel.setBackground(Color.black);
-		JLabel[] twoLabel = new JLabel[4];
-		for(int i = 0; i < 4; i++) {
-			twoLabel[i] = new JLabel("XX");
-			twoLabel[i].setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
-			twoLabel[i].setForeground(Color.decode("#009900"));
-			twoPanel.add(twoLabel[i]);
-		}
-		JPanel threePanel = new JPanel();
-		threePanel.setLayout(new FlowLayout());
-		threePanel.setBackground(Color.black);
-		JLabel[] threeLabel = new JLabel[4];
-		for(int i = 0; i < 4; i++) {
-			threeLabel[i] = new JLabel("XXX");
-			threeLabel[i].setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
-			threeLabel[i].setForeground(Color.decode("#009900"));
-			threePanel.add(threeLabel[i]);
-		}
-		JPanel fourPanel = new JPanel();
-		fourPanel.setLayout(new FlowLayout());
-		fourPanel.setBackground(Color.black);
-		JLabel[] fourLabel = new JLabel[2];
-		for(int i = 0; i < 2; i++) {
-			fourLabel[i] = new JLabel("XXXX");
-			fourLabel[i].setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
-			fourLabel[i].setForeground(Color.decode("#009900"));
-			fourPanel.add(fourLabel[i]);
-		}
-		JPanel fivePanel = new JPanel();
-		fivePanel.setLayout(new FlowLayout());
-		fivePanel.setBackground(Color.black);
-		JLabel fiveLabel = new JLabel();
-		fiveLabel = new JLabel("XXXXX");
-		fiveLabel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
-		fiveLabel.setForeground(Color.decode("#009900"));
-		fivePanel.add(fiveLabel);
-		JButton confirm = new JButton();
-		confirm.setBackground(Color.decode("#009900"));
-		confirm.setText("fertig mit platzieren");
-		confirm.setHorizontalAlignment(JLabel.CENTER);
-		confirm.addActionListener(this);
-		confirm.setActionCommand("confirm");
-		confirm.setFocusable(false);
-		confirm.setForeground(Color.black);
-		JPanel button1 = new JPanel();
-		button1.setLayout(new BorderLayout());
-		JPanel button2 = new JPanel();
-		button2.setLayout(new BorderLayout());
-		JPanel button3 = new JPanel();
-		button3.setLayout(new BorderLayout());
+	private void addButtons(JPanel panel){		
 		reset = new JButton();
 		reset.setBackground(Color.red);
 		reset.setText("von vorne Beginnen");
@@ -196,7 +238,7 @@ public class View extends JFrame implements ActionListener{
 		reset.addActionListener(this);
 		reset.setActionCommand("reset");
 		reset.setFocusable(false);
-		reset.setForeground(Color.black);
+		reset.setForeground(Color.white);
 		home = new JButton();
 		home.setBackground(Color.blue);
 		home.setText("zurück zum Hauptmenü");
@@ -204,82 +246,41 @@ public class View extends JFrame implements ActionListener{
 		home.addActionListener(this);
 		home.setActionCommand("home");
 		home.setFocusable(false);
-		home.setForeground(Color.black);
-		JPanel place = new JPanel();
-		place.setBackground(Color.black);
-		JPanel place2 = new JPanel();
-		place2.setBackground(Color.black);
-		JPanel place3 = new JPanel();
-		place3.setBackground(Color.black);
-		JPanel place4 = new JPanel();
-		place4.setBackground(Color.black);
-		JPanel place5 = new JPanel();
-		place5.setBackground(Color.black);
-		JPanel place6 = new JPanel();
-		place6.setBackground(Color.black);
-		JPanel place7 = new JPanel();
-		place7.setBackground(Color.black);
-		JPanel place8 = new JPanel();
-		place8.setBackground(Color.black);
-		JPanel place9 = new JPanel();
-		place9.setBackground(Color.black);
-		button1.add(BorderLayout.CENTER, confirm);
-		button1.add(BorderLayout.SOUTH, place);
-		button1.add(BorderLayout.EAST, place2);
-		button1.add(BorderLayout.WEST, place3);
-		button2.add(BorderLayout.CENTER, reset);
-		button2.add(BorderLayout.SOUTH, place4);
-		button2.add(BorderLayout.EAST, place5);
-		button2.add(BorderLayout.WEST, place6);
-		button3.add(BorderLayout.CENTER, home);
-		button3.add(BorderLayout.SOUTH, place7);
-		button3.add(BorderLayout.EAST, place8);
-		button3.add(BorderLayout.WEST, place9);
-		panel.add(twoPanel);
-		panel.add(threePanel);
-		panel.add(fourPanel);
-		panel.add(fivePanel);
-		panel.add(button1);
-		panel.add(button2);
-		panel.add(button3);
+		home.setForeground(Color.white);
+		panel.add(reset);
+		panel.add(home);
 	}
 	
 	private void addPlayerBoard(JPanel panel){
-		playerLabels[0][0] = new JLabel(" ");
-		playerLabels[0][1] = new JLabel("1");
-		playerLabels[0][2] = new JLabel("2");
-		playerLabels[0][3] = new JLabel("3");
-		playerLabels[0][4] = new JLabel("4");
-		playerLabels[0][5] = new JLabel("5");
-		playerLabels[0][6] = new JLabel("6");
-		playerLabels[0][7] = new JLabel("7");
-		playerLabels[0][8] = new JLabel("8");
-		playerLabels[0][9] = new JLabel("9");
-		playerLabels[0][10] = new JLabel("10");
-		playerLabels[1][0] = new JLabel("A");
-		playerLabels[2][0] = new JLabel("B");
-		playerLabels[3][0] = new JLabel("C");
-		playerLabels[4][0] = new JLabel("D");
-		playerLabels[5][0] = new JLabel("E");
-		playerLabels[6][0] = new JLabel("F");
-		playerLabels[7][0] = new JLabel("G");
-		playerLabels[8][0] = new JLabel("H");
-		playerLabels[9][0] = new JLabel("I");
-		playerLabels[10][0] = new JLabel("J");
-		for(int i = 1; i < 11; i++) {
-			for(int j = 1; j < 11; j++) {
-				playerLabels[i][j] = new JLabel(" ");
+		shiffSelectButtons = new JButton[2][4];
+		JLabel[][] shiffSelectLabels = new JLabel[2][4];
+		JPanel[][] shiffSelectPanels = new JPanel[2][4];
+		for(int i = 0; i < 2; i++) {
+			for(int j = 0; j < 4; j++) {
+				shiffSelectPanels[i][j] = new JPanel();
+				shiffSelectPanels[i][j].setBackground(Color.black);
+				shiffSelectLabels[i][j] = new JLabel();
+				shiffSelectLabels[i][j].setIcon(new ImageIcon("./src/field" + ((i*4)+(j+1)) + ".png"));
+				shiffSelectPanels[i][j].add(shiffSelectLabels[i][j]);
+				shiffSelectButtons[i][j] = new JButton(" "+ ((i*4)+(j+1)) + " ");
+				shiffSelectButtons[i][j].addActionListener(this);
+				shiffSelectButtons[i][j].setBackground(Color.decode("#009900"));
+				shiffSelectButtons[i][j].setBorder(new LineBorder(Color.white, 1));
+				shiffSelectButtons[i][j].setForeground(Color.white);
+				shiffSelectButtons[i][j].setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+				shiffSelectPanels[i][j].add(shiffSelectButtons[i][j]);
+				panel.add(shiffSelectPanels[i][j]);
+				
 			}
 		}
-		for(int i = 0; i < 11; i++) {
-			for(int j = 0; j < 11; j++) {
-				playerLabels[i][j].setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
-				playerLabels[i][j].setBorder(new LineBorder(Color.decode("#009900")));
-				playerLabels[i][j].setForeground(Color.decode("#009900"));
-				playerLabels[i][j].setHorizontalAlignment(JLabel.CENTER);			
-				panel.add(playerLabels[i][j]);
-			}
-		}
+		shiffSelectButtons[0][0].setActionCommand("one");
+		shiffSelectButtons[0][1].setActionCommand("two");
+		shiffSelectButtons[0][2].setActionCommand("three");
+		shiffSelectButtons[0][3].setActionCommand("four");
+		shiffSelectButtons[1][0].setActionCommand("five");
+		shiffSelectButtons[1][1].setActionCommand("six");
+		shiffSelectButtons[1][2].setActionCommand("seven");
+		shiffSelectButtons[1][3].setActionCommand("eight");
 	}
 	
 	private void addAiBoard(JPanel panel){
@@ -400,9 +401,8 @@ public class View extends JFrame implements ActionListener{
 	
 	
 	private void aiShiffSet() {
-		int prevInf = 0;
 		int boots = 0;
-		int place;
+		int place = 1;
 		aiShiffs();
 		int i;
 		int j;
@@ -410,22 +410,6 @@ public class View extends JFrame implements ActionListener{
 		{	
 			i = random.nextInt(10);
 			j = random.nextInt(10);
-			if ( prevInf < 10 ) {
-				place = random.nextInt(6);
-			}
-			else{
-				place = 1;
-				if(prevInf == 15) {
-					horizontal = 1;
-				}
-				else if(prevInf == 16){
-					horizontal = 0;
-				}
-				else if(prevInf == 17){
-					System.out.println("Hat nicht funktioniert :'(");
-					return;
-				}
-			}
 			if( place == 1 ) {
 				if( horizontal == 1)
 				{
@@ -486,20 +470,63 @@ public class View extends JFrame implements ActionListener{
 		}
 	}
 	
-	private void checkShiffSet(){
-		int shiffPlaces = 0;
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++) {
-				if( playerStringShiff[i][j] == "X") {
-					shiffPlaces++;
-				}
-			}
-		}
-		System.out.println("shiffplaces: " + shiffPlaces);
-		if(shiffPlaces == 33) {
-			int answer = JOptionPane.showConfirmDialog(this, "Möchtest du das so behalten?", null, JOptionPane.YES_NO_OPTION);
+	private void shiffSet(){
+			int answer = JOptionPane.showConfirmDialog(this, "Sind sie sicher das sie das Brett möcchten?", null, JOptionPane.YES_NO_OPTION);
 			if(answer == 0)
 			{
+				JPanel playerBoard2 = new JPanel();
+				playerBoard2.setLayout(new GridLayout(11, 11));
+				playerBoard2.setBackground(Color.black);
+				playerLabels[0][0] = new JLabel(" ");
+				playerLabels[0][1] = new JLabel("1");
+				playerLabels[0][2] = new JLabel("2");
+				playerLabels[0][3] = new JLabel("3");
+				playerLabels[0][4] = new JLabel("4");
+				playerLabels[0][5] = new JLabel("5");
+				playerLabels[0][6] = new JLabel("6");
+				playerLabels[0][7] = new JLabel("7");
+				playerLabels[0][8] = new JLabel("8");
+				playerLabels[0][9] = new JLabel("9");
+				playerLabels[0][10] = new JLabel("10");
+				playerLabels[1][0] = new JLabel("A");
+				playerLabels[2][0] = new JLabel("B");
+				playerLabels[3][0] = new JLabel("C");
+				playerLabels[4][0] = new JLabel("D");
+				playerLabels[5][0] = new JLabel("E");
+				playerLabels[6][0] = new JLabel("F");
+				playerLabels[7][0] = new JLabel("G");
+				playerLabels[8][0] = new JLabel("H");
+				playerLabels[9][0] = new JLabel("I");
+				playerLabels[10][0] = new JLabel("J");
+				for(int i = 1; i < 11; i++) {
+					for(int j = 1; j < 11; j++) {
+						playerLabels[i][j] = new JLabel(" ");
+						if(playerStringShiff[i-1][j-1] == "S") {
+							playerLabels[i][j].setIcon(new ImageIcon("./src/schiffAnfang.png"));
+						}
+						else if(playerStringShiff[i-1][j-1] == "E") {
+							playerLabels[i][j].setIcon(new ImageIcon("./src/schiffEnde.png"));
+						}
+						else if(playerStringShiff[i-1][j-1] == "SH") {
+							playerLabels[i][j].setIcon(new ImageIcon("./src/schiffAnfangH.png"));
+						}
+						else if(playerStringShiff[i-1][j-1] == "EH") {
+							playerLabels[i][j].setIcon(new ImageIcon("./src/schiffEndeH.png"));
+						}
+						else if(playerStringShiff[i-1][j-1] == "X") {
+							playerLabels[i][j].setIcon(new ImageIcon("./src/schiffMitte.png"));
+						}
+					}
+				}
+				for(int i = 0; i < 11; i++) {
+					for(int j = 0; j < 11; j++) {
+						playerLabels[i][j].setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
+						playerLabels[i][j].setBorder(new LineBorder(Color.decode("#009900")));
+						playerLabels[i][j].setForeground(Color.decode("#009900"));
+						playerLabels[i][j].setHorizontalAlignment(JLabel.CENTER);			
+						playerBoard2.add(playerLabels[i][j]);
+					}
+				}
 				JPanel center = new JPanel();
 				center.setBackground(Color.black);
 				JPanel board1 = new JPanel();
@@ -529,12 +556,11 @@ public class View extends JFrame implements ActionListener{
 				titel1.add(playerTitel);
 				titel2.add(aiTitel);
 				board1.add(BorderLayout.NORTH, titel1);
-				board1.add(BorderLayout.CENTER, playerBoard);
+				board1.add(BorderLayout.CENTER, playerBoard2);
 				board2.add(BorderLayout.NORTH, titel2);
 				board2.add(BorderLayout.CENTER, aiBoard);
 				center.add(board1);
 				center.add(board2);
-				game.remove(game.getComponent(1));
 				game.remove(playerBoard);
 				JPanel buttons = new JPanel();
 				buttons.setLayout(new FlowLayout());
@@ -560,10 +586,6 @@ public class View extends JFrame implements ActionListener{
 					tLabel.setText("Du bist am Zug");
 				}
 			}
-		}
-		else {
-			tLabel.setText("Du hast noch nicht alle Schiffe platziert!");
-		}
 	}
 	
 	private void aiTurn() {
@@ -605,6 +627,43 @@ public class View extends JFrame implements ActionListener{
 					else if( playerStringShiff[foundRow+1][foundColumn] == "X") {
 						playerLabels[foundRow+2][foundColumn+1].setText("X");
 						playerLabels[foundRow+2][foundColumn+1].setForeground(Color.red);
+						playerLabels[foundRow+2][foundColumn+1].setIcon(new ImageIcon("./src/schiffMitteTreffer.png"));
+						jumped++;
+						foundRow++;
+						directionFound = "S";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow+1][foundColumn] == "S") {
+						playerLabels[foundRow+2][foundColumn+1].setText("X");
+						playerLabels[foundRow+2][foundColumn+1].setForeground(Color.red);
+						playerLabels[foundRow+2][foundColumn+1].setIcon(new ImageIcon("./src/schiffAnfangTreffer.png"));
+						jumped++;
+						foundRow++;
+						directionFound = "S";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow+1][foundColumn] == "E") {
+						playerLabels[foundRow+2][foundColumn+1].setText("X");
+						playerLabels[foundRow+2][foundColumn+1].setForeground(Color.red);
+						playerLabels[foundRow+2][foundColumn+1].setIcon(new ImageIcon("./src/schiffEndeTreffer.png"));
+						jumped++;
+						foundRow++;
+						directionFound = "S";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow+1][foundColumn] == "SH") {
+						playerLabels[foundRow+2][foundColumn+1].setText("X");
+						playerLabels[foundRow+2][foundColumn+1].setForeground(Color.red);
+						playerLabels[foundRow+2][foundColumn+1].setIcon(new ImageIcon("./src/schiffAnfangHTreffer.png"));
+						jumped++;
+						foundRow++;
+						directionFound = "S";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow+1][foundColumn] == "EH") {
+						playerLabels[foundRow+2][foundColumn+1].setText("X");
+						playerLabels[foundRow+2][foundColumn+1].setForeground(Color.red);
+						playerLabels[foundRow+2][foundColumn+1].setIcon(new ImageIcon("./src/schiffEndeHTreffer.png"));
 						jumped++;
 						foundRow++;
 						directionFound = "S";
@@ -655,6 +714,43 @@ public class View extends JFrame implements ActionListener{
 					else if( playerStringShiff[foundRow][foundColumn-1] == "X") {
 						playerLabels[foundRow+1][foundColumn].setText("X");
 						playerLabels[foundRow+1][foundColumn].setForeground(Color.red);
+						playerLabels[foundRow+1][foundColumn].setIcon(new ImageIcon("./src/schiffMitteTreffer.png"));
+						jumped++;
+						foundColumn--;
+						directionFound = "W";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow][foundColumn-1] == "S") {
+						playerLabels[foundRow+1][foundColumn].setText("X");
+						playerLabels[foundRow+1][foundColumn].setForeground(Color.red);
+						playerLabels[foundRow+1][foundColumn].setIcon(new ImageIcon("./src/schiffAnfangTreffer.png"));
+						jumped++;
+						foundColumn--;
+						directionFound = "W";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow][foundColumn-1] == "E") {
+						playerLabels[foundRow+1][foundColumn].setText("X");
+						playerLabels[foundRow+1][foundColumn].setForeground(Color.red);
+						playerLabels[foundRow+1][foundColumn].setIcon(new ImageIcon("./src/schiffEndeTreffer.png"));
+						jumped++;
+						foundColumn--;
+						directionFound = "W";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow][foundColumn-1] == "SH") {
+						playerLabels[foundRow+1][foundColumn].setText("X");
+						playerLabels[foundRow+1][foundColumn].setForeground(Color.red);
+						playerLabels[foundRow+1][foundColumn].setIcon(new ImageIcon("./src/schiffAnfangHTreffer.png"));
+						jumped++;
+						foundColumn--;
+						directionFound = "W";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow][foundColumn-1] == "EH") {
+						playerLabels[foundRow+1][foundColumn].setText("X");
+						playerLabels[foundRow+1][foundColumn].setForeground(Color.red);
+						playerLabels[foundRow+1][foundColumn].setIcon(new ImageIcon("./src/schiffEndeHTreffer.png"));
 						jumped++;
 						foundColumn--;
 						directionFound = "W";
@@ -713,6 +809,43 @@ public class View extends JFrame implements ActionListener{
 					else if( playerStringShiff[foundRow-1][foundColumn] == "X") {
 						playerLabels[foundRow][foundColumn+1].setText("X");
 						playerLabels[foundRow][foundColumn+1].setForeground(Color.red);
+						playerLabels[foundRow][foundColumn+1].setIcon(new ImageIcon("./src/schiffMitteTreffer.png"));
+						jumped++;
+						foundRow--;
+						directionFound = "S";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow-1][foundColumn] == "S") {
+						playerLabels[foundRow][foundColumn+1].setText("X");
+						playerLabels[foundRow][foundColumn+1].setForeground(Color.red);
+						playerLabels[foundRow][foundColumn+1].setIcon(new ImageIcon("./src/schiffAnfangTreffer.png"));
+						jumped++;
+						foundRow--;
+						directionFound = "S";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow-1][foundColumn] == "E") {
+						playerLabels[foundRow][foundColumn+1].setText("X");
+						playerLabels[foundRow][foundColumn+1].setForeground(Color.red);
+						playerLabels[foundRow][foundColumn+1].setIcon(new ImageIcon("./src/schiffEndeTreffer.png"));
+						jumped++;
+						foundRow--;
+						directionFound = "S";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow-1][foundColumn] == "SH") {
+						playerLabels[foundRow][foundColumn+1].setText("X");
+						playerLabels[foundRow][foundColumn+1].setForeground(Color.red);
+						playerLabels[foundRow][foundColumn+1].setIcon(new ImageIcon("./src/schiffAnfangHTreffer.png"));
+						jumped++;
+						foundRow--;
+						directionFound = "S";
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow-1][foundColumn] == "EH") {
+						playerLabels[foundRow][foundColumn+1].setText("X");
+						playerLabels[foundRow][foundColumn+1].setForeground(Color.red);
+						playerLabels[foundRow][foundColumn+1].setIcon(new ImageIcon("./src/schiffEndeHTreffer.png"));
 						jumped++;
 						foundRow--;
 						directionFound = "S";
@@ -760,6 +893,39 @@ public class View extends JFrame implements ActionListener{
 					else if( playerStringShiff[foundRow][foundColumn+1] == "X") {
 						playerLabels[foundRow+1][foundColumn+2].setText("X");
 						playerLabels[foundRow+1][foundColumn+2].setForeground(Color.red);
+						playerLabels[foundRow+1][foundColumn+2].setIcon(new ImageIcon("./src/schiffMitteTreffer.png"));
+						jumped++;
+						foundColumn++;
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow][foundColumn+1] == "S") {
+						playerLabels[foundRow+1][foundColumn+2].setText("X");
+						playerLabels[foundRow+1][foundColumn+2].setForeground(Color.red);
+						playerLabels[foundRow+1][foundColumn+2].setIcon(new ImageIcon("./src/schiffAnfangTreffer.png"));
+						jumped++;
+						foundColumn++;
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow][foundColumn+1] == "E") {
+						playerLabels[foundRow+1][foundColumn+2].setText("X");
+						playerLabels[foundRow+1][foundColumn+2].setForeground(Color.red);
+						playerLabels[foundRow+1][foundColumn+2].setIcon(new ImageIcon("./src/schiffEndeTreffer.png"));
+						jumped++;
+						foundColumn++;
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow][foundColumn+1] == "SH") {
+						playerLabels[foundRow+1][foundColumn+2].setText("X");
+						playerLabels[foundRow+1][foundColumn+2].setForeground(Color.red);
+						playerLabels[foundRow+1][foundColumn+2].setIcon(new ImageIcon("./src/schiffAnfangHTreffer.png"));
+						jumped++;
+						foundColumn++;
+						checkAiWin();
+					}
+					else if( playerStringShiff[foundRow][foundColumn+1] == "EH") {
+						playerLabels[foundRow+1][foundColumn+2].setText("X");
+						playerLabels[foundRow+1][foundColumn+2].setForeground(Color.red);
+						playerLabels[foundRow+1][foundColumn+2].setIcon(new ImageIcon("./src/schiffEndeHTreffer.png"));
 						jumped++;
 						foundColumn++;
 						checkAiWin();
@@ -777,6 +943,39 @@ public class View extends JFrame implements ActionListener{
 			}
 			else if( playerStringShiff[row][column] == "X") {
 				playerLabels[row+1][column+1].setText("X");
+				playerLabels[row+1][column+1].setIcon(new ImageIcon("./src/schiffMitteTreffer.png"));
+				playerLabels[row+1][column+1].setForeground(Color.red);
+				foundRow = row; 
+				foundColumn = column;
+				checkAiWin();
+			}
+			else if( playerStringShiff[row][column] == "S") {
+				playerLabels[row+1][column+1].setText("X");
+				playerLabels[row+1][column+1].setIcon(new ImageIcon("./src/schiffAnfangTreffer.png"));
+				playerLabels[row+1][column+1].setForeground(Color.red);
+				foundRow = row; 
+				foundColumn = column;
+				checkAiWin();
+			}
+			else if( playerStringShiff[row][column] == "E") {
+				playerLabels[row+1][column+1].setText("X");
+				playerLabels[row+1][column+1].setIcon(new ImageIcon("./src/schiffEndeTreffer.png"));
+				playerLabels[row+1][column+1].setForeground(Color.red);
+				foundRow = row; 
+				foundColumn = column;
+				checkAiWin();
+			}
+			else if( playerStringShiff[row][column] == "SH") {
+				playerLabels[row+1][column+1].setText("X");
+				playerLabels[row+1][column+1].setIcon(new ImageIcon("./src/schiffAnfangHTreffer.png"));
+				playerLabels[row+1][column+1].setForeground(Color.red);
+				foundRow = row; 
+				foundColumn = column;
+				checkAiWin();
+			}
+			else if( playerStringShiff[row][column] == "EH") {
+				playerLabels[row+1][column+1].setText("X");
+				playerLabels[row+1][column+1].setIcon(new ImageIcon("./src/schiffEndeHTreffer.png"));
 				playerLabels[row+1][column+1].setForeground(Color.red);
 				foundRow = row; 
 				foundColumn = column;
@@ -966,8 +1165,37 @@ public class View extends JFrame implements ActionListener{
 				}
 			}	
 		}
-		if(event.getActionCommand() == "confirm") {
-			checkShiffSet();
+		if(event.getActionCommand() == "one") {
+			playerStringShiff = selectStringShiff[0];
+			shiffSet();
+		}
+		else if(event.getActionCommand() == "two") {
+			playerStringShiff = selectStringShiff[1];
+			shiffSet();
+		}
+		else if(event.getActionCommand() == "three") {
+			playerStringShiff = selectStringShiff[2];
+			shiffSet();
+		}
+		else if(event.getActionCommand() == "four") {
+			playerStringShiff = selectStringShiff[3];
+			shiffSet();
+		}
+		else if(event.getActionCommand() == "five") {
+			playerStringShiff = selectStringShiff[4];
+			shiffSet();
+		}
+		else if(event.getActionCommand() == "six") {
+			playerStringShiff = selectStringShiff[5];
+			shiffSet();
+		}
+		else if(event.getActionCommand() == "seven") {
+			playerStringShiff = selectStringShiff[6];
+			shiffSet();
+		}
+		else if(event.getActionCommand() == "eight") {
+			playerStringShiff = selectStringShiff[7];
+			shiffSet();
 		}
 		else if(event.getActionCommand() == "reset") {
 			reset();

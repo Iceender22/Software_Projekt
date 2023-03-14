@@ -31,8 +31,8 @@ public class View extends JFrame implements ActionListener{
 	    setTitle("Vier Gewinnt");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
 	    setLocationRelativeTo(null);                         
-	    setSize(1200, 600);
-	    setExtendedState(JFrame.MAXIMIZED_BOTH); 
+	    setSize(1400, 750);
+	    setResizable(false);
 	    
 	    addComponents();     
 
